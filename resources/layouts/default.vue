@@ -1,52 +1,35 @@
 <template>
-  <div>
-    <nuxt/>
+  <div class="page page__full">
+    <div class="page__content">
+      <my-header/>
+      <nuxt/>
+    </div>
     <my-footer/>
   </div>
 </template>
 
 <script>
-import MyFooter from '~/components/Footer.vue'
+import MyFooter from '~/components/partial/Footer'
+import MyHeader from '~/components/partial/Header'
 
 export default {
+  data() {
+    return {
+      locale: 'ru'
+    }
+  },
+  mounted() {
+    var userLang = localStorage.getItem('svrlab.language') || navigator.language || navigator.userLanguage;
+    this.locale = userLang.substring(0, 2);
+  },
+  watch: {
+    locale (val) {
+      this.$i18n.locale = val;
+    }
+  },
   components: {
-    MyFooter
-  }
+    MyFooter,
+    MyHeader
+  },
 }
 </script>
-
-<style>
-.container
-{
-  margin: 0;
-  width: 100%;
-  padding: 100px 0;
-  text-align: center;
-}
-
-.button, .button:visited
-{
-  display: inline-block;
-  color: #744d82;
-  letter-spacing: 1px;
-  background-color: #fff;
-  border: 2px solid #744d82;
-  text-decoration: none;
-  text-transform: uppercase;
-  padding: 15px 45px;
-}
-
-.button:hover, .button:focus
-{
-  color: #fff;
-  background-color: #744d82;
-}
-
-.title
-{
-  color: #505153;
-  font-weight: 300;
-  font-size: 2.5em;
-  margin: 0;
-}
-</style>

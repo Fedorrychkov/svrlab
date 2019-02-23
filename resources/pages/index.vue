@@ -1,18 +1,10 @@
 <template>
-  <section class="container">
-    <img src="~assets/img/logo.png" alt="Nuxt.js Logo" class="logo" />
-    <h1 class="title">
-      Universal Vue.js Applications Framework
-    </h1>
-    <nuxt-link class="button" to="/about">
-      About page
-    </nuxt-link>
-  </section>
+  <section class="homepage">s</section>
 </template>
+<script>
+export default {
+  components: {
 
-<style scoped>
-.title
-{
-  margin: 50px 0;
+  }
 }
-</style>
+</script>

@@ -6,8 +6,22 @@ module.exports = {
   /*
   ** Headers of the page
   */
+  plugins: [
+    {src: '~/plugins/vue-vuetify', ssr: false},
+    // {src: '~/plugins/vue-particles', ssr: false},
+    {src: '~/plugins/vue-scrollto', ssr: false},
+    '~/plugins/vue-lang',
+  ],
+  pluginOptions: {
+    i18n: {
+      locale: "ru",
+      fallbackLocale: "en",
+      localeDir: "locales",
+      enableInSFC: false
+    }
+  },
   head: {
-    title: 'Adonuxt',
+    title: 'SVR Laboratory - авторское музыкальное оборудование и музыка',
     meta: [
       {
         charset: 'utf-8'
@@ -19,21 +33,50 @@ module.exports = {
       {
         hid: 'description',
         name: 'description',
-        content: 'Adonuxt project'
+        content: 'Сайт Сергея Валентиновича Рычкова, производителя авторского музыкального оборудования и медитативной музыки.'
+      },
+      // OG META TAGS
+      // {
+        // property: 'og:image',
+        // content: 'og-image.jpg'
+      // },
+      // {
+      //   property: 'og:image:width',
+      //   content: '333'
+      // },
+      // {
+      //   property: 'og:image:height',
+      //   content: '500'
+      // },
+      {
+        property: 'og:title',
+        content: 'SVR Laboratory - авторское музыкальное оборудование и музыка'
+      },
+      {
+        property: 'og:url',
+        content: 'https://svrlab.com/'
+      },
+      {
+        property: 'og:description',
+        content: 'Сайт Сергея Валентиновича Рычкова, производителя авторского музыкального оборудования и медитативной музыки.'
       }
     ],
     link: [
       {
-        rel: 'icon',
-        type: 'image/x-icon',
-        href: 'favicon.ico'
+        href: 'https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons',
+        rel: 'stylesheet'
       }
+      // {
+      //   rel: 'icon',
+      //   type: 'image/x-icon',
+      //   href: 'favicon.ico'
+      // }
     ]
   },
   /*
   ** Global CSS
   */
-  css: ['~assets/css/main.css'],
+  css: ['~assets/scss/main.scss'],
   /*
   ** Customize the progress-bar color
   */

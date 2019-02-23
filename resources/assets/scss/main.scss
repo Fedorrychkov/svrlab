@@ -1,0 +1,15 @@
+// Bootstrap
+@import '../../../node_modules/vuetify/dist/vuetify.min.css';
+@import '../../../node_modules/bootstrap/scss/bootstrap.scss';
+
+// default
+@import './variables';
+@import './normalize';
+@import './global';
+@import './bootstrap';
+
+// Core
+
+// Shared
+@import './shared/page';
+@import './shared/link';

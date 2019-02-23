@@ -1,0 +1,8 @@
+.link {
+  text-decoration: none;
+  transition: all $animation-fast ease-in-out;
+
+  &:hover {
+    text-decoration: none;
+  }
+}

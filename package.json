@@ -25,9 +25,15 @@
     "@adonisjs/lucid": "^4.0.22",
     "@adonisjs/session": "^1.0.19",
     "@adonisjs/shield": "^1.0.4",
+    "bootstrap": "^4.3.1",
     "cross-env": "^3.1.4",
+    "node-sass": "^4.11.0",
     "nuxt": "latest",
+    "sass-loader": "^7.1.0",
     "standard": "^8.6.0",
+    "vue-i18n": "^8.8.2",
+    "vue-scrollto": "^2.13.0",
+    "vuetify": "^1.5.2",
     "youch": "^2.0.4"
   },
   "standard": {
@@ -47,6 +53,10 @@
     "eslint-plugin-promise": "^3.4.0",
     "eslint-plugin-standard": "^2.0.1",
     "nodemon": "^1.11.0",
-    "standard": "^8.6.0"
+    "standard": "^8.6.0",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.1",
+    "vue-cli-plugin-vuetify": "^0.4.6",
+    "vuetify-loader": "^1.0.5"
   }
 }
