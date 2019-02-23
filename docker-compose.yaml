@@ -1,0 +1,22 @@
+version: '3.5'
+services:
+  adonis:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    environment:
+      - NODE_ENV=development
+    restart: always
+    volumes:
+      - ./:/app
+    links:
+      - db:db
+    ports:
+      - "${APP_PORT}:3000"
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
