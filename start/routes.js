@@ -15,4 +15,7 @@
 
 const Route = use('Route')
 
+// base api route
+Route.any('/api', () => 'TODO: Return help about api.')
+
 Route.any('*', 'NuxtController.render')
