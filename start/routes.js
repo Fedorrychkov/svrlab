@@ -12,10 +12,20 @@
 | http://adonisjs.com/guides/routing
 |
 */
-
+const { graphqlAdonis, graphiqlAdonis } = require('apollo-server-adonis');
+const schema = require('../app/Data/Schema');
 const Route = use('Route')
 
 // base api route
 Route.any('/api', () => 'TODO: Return help about api.')
+
+Route.any('/api/graphql', graphqlAdonis({ schema: schema }));
+
+Route.get(
+  '/api/graphiql',
+  graphiqlAdonis({
+    endpointURL: '/api/graphql',
+  }),
+);
 
 Route.any('*', 'NuxtController.render')
