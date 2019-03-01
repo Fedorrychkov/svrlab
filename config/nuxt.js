@@ -10,6 +10,7 @@ module.exports = {
     {src: '~/plugins/vue-vuetify', ssr: false},
     // {src: '~/plugins/vue-particles', ssr: false},
     {src: '~/plugins/vue-scrollto', ssr: false},
+    {src: '~/plugins/vue-fontawesome', ssr: false},
     '~/plugins/vue-lang',
   ],
   pluginOptions: {

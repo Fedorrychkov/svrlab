@@ -1,0 +1,19 @@
+.container {
+
+  @media #{$tab-up} {
+      max-width: 95%;
+  }
+
+  @media #{$mobile-up} {
+      max-width: 95%;
+  }
+  @media #{$desktop-up} {
+      max-width: 960px;
+  }
+  @media (min-width: 1200px) {
+      max-width: 1140px;
+  }
+  @media (min-width: 1440px) {
+      max-width: 1380px;
+  }
+}

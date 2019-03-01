@@ -2,7 +2,7 @@
   <section class="homepage">s</section>
 </template>
 <script>
-import gql from 'graphql-tag'
+import gql from 'graphql-tag';
 
 export default {
   data() {
