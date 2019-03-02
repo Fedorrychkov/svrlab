@@ -1,6 +1,10 @@
 <template>
   <header class="admin-header">
-    is admin header
+    <ul class="admin-header__list">
+      <li class="admin-header__item">
+        <button class="admin-header__exit admin-header__link">Выйти</button>
+      </li>
+    </ul>
   </header>
 </template>
 <script>
@@ -10,7 +14,33 @@ export default {
 </script>
 <style lang="scss">
 .admin-header {
-  padding: 0 15px;
+  padding: 15px;
   background-color: #fff;
+
+  &__list {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-left: -8px;
+    margin-right: -8px;
+  }
+
+  &__item {
+    margin: 0 8px;
+  }
+
+  &__link {
+    color: #2196f3;
+    background-color: transparent;
+    border: none;
+    text-decoration: none;
+
+    &:hover {
+      color: #2196f3;
+      text-decoration: none;
+      background-color: transparent;
+      opacity: .7;
+    }
+  }
 }
 </style>

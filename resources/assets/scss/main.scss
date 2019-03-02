@@ -11,7 +11,10 @@
 @import './vendor/container';
 
 // Core
+@import './core/admin/admin-page';
 
 // Shared
 @import './shared/page';
 @import './shared/link';
+@import './shared/button';
+@import './shared/pane';

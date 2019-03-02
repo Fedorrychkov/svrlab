@@ -24,7 +24,7 @@ export default {
 </script>
 <style lang="scss">
 .admin {
-  background-color: #f3f3f4;
+  background-color: #f3f5f8;
 }
 </style>
 

@@ -1,10 +1,27 @@
 <template>
-  <div>
-
-  </div>
+  <admin-template>
+    <template slot="title">
+      <h2 class="title">Музыка</h2>
+    </template>
+    <template slot="content">
+      <pane>
+        <template slot="head">
+        </template>
+        <template slot="content">
+        </template>
+      </pane>
+    </template>
+  </admin-template>
 </template>
 <script>
+import AdminTemplate from '@/components/shared/AdminPageTemplate';
+import Pane from '@/components/shared/Pane';
+
 export default {
-  layout: 'admin'
+  layout: 'admin',
+  components: {
+    AdminTemplate,
+    Pane
+  }
 }
 </script>

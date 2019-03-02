@@ -1,12 +1,11 @@
 <template>
   <admin-template>
     <template slot="title">
-      <h2 class="title">Музыкальное оборудование</h2>
+      <h2 class="title">Товар</h2>
     </template>
     <template slot="content">
       <pane>
         <template slot="head">
-          <button class="button">Добавить</button>
         </template>
         <template slot="content">
         </template>
@@ -14,7 +13,6 @@
     </template>
   </admin-template>
 </template>
-
 <script>
 import AdminTemplate from '@/components/shared/AdminPageTemplate';
 import Pane from '@/components/shared/Pane';
