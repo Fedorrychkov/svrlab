@@ -20,7 +20,9 @@ export default {
     return {
       nav: [
         { name: 'Доска', link: '/admin/dashboard', icon: 'columns' },
-        { name: 'Усилители', link: '/admin/amplifiers', icon: 'columns' },
+        { name: 'Усилители', link: '/admin/amplifiers', icon: 'archive' },
+        { name: 'Музыка', link: '/admin/musics', icon: 'music' },
+        { name: 'Настройки', link: '/admin/settings', icon: 'cog' }
       ]
     }
   }
@@ -59,6 +61,7 @@ export default {
 
     .icon {
       margin-right: 12px;
+      width: 16px;
     }
 
   }
