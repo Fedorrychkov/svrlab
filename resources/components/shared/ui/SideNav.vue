@@ -1,5 +1,11 @@
 <template>
   <aside class="sidenav blue elevation-12">
+    <div class="sidenav__head">
+      <div class="sidenav__logo">
+        <span class="logo">SVR<i>lab</i></span>
+        <span class="panel">Управление</span>
+      </div>
+    </div>
     <ul class="sidenav__list">
       <li class="sidenav__item" v-for="(item, i) in nav" :key="i">
         <nuxt-link class="sidenav__link" :to="item.link">
@@ -20,6 +26,7 @@ export default {
     return {
       nav: [
         { name: 'Доска', link: '/admin/dashboard', icon: 'columns' },
+        { name: 'Заказы', link: '/admin/orders', icon: 'shopping-basket' },
         { name: 'Усилители', link: '/admin/amplifiers', icon: 'archive' },
         { name: 'Музыка', link: '/admin/musics', icon: 'music' },
         { name: 'Настройки', link: '/admin/settings', icon: 'cog' }
@@ -33,6 +40,37 @@ export default {
   min-width: var(--admin-sidenav-md-width);
   transition: all .15s ease-in-out;
   height: 100vh;
+
+  &__head {
+    padding: 12px;
+    padding-left: 16px;
+    background-color: rgba(255, 255, 255, .2);
+  }
+
+  &__logo {
+    margin: 0 auto;
+    display: inline-block;
+
+    .logo, .panel {
+      display: block;
+      color: #fff;
+      line-height: 1;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 600;
+
+      i {
+        font-style: normal;
+        font-size: 16px;
+      }
+    }
+
+    .panel {
+      font-size: 14px;
+    }
+  }
 
   &.small {
     min-width: var(--admin-sidenav-sm-width);
