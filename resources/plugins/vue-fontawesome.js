@@ -3,8 +3,22 @@ import Vue from 'vue'
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faColumns } from '@fortawesome/free-solid-svg-icons'
+import {
+  faColumns,
+  faArchive,
+  faMusic,
+  faCog,
+  faEdit,
+  faShoppingBasket
+} from '@fortawesome/free-solid-svg-icons'
 
-library.add(faColumns);
+library.add(
+  faColumns,
+  faArchive,
+  faMusic,
+  faCog,
+  faEdit,
+  faShoppingBasket
+);
 
 Vue.component(FontAwesomeIcon.name, FontAwesomeIcon);
