@@ -2,6 +2,9 @@
   <header class="admin-header">
     <ul class="admin-header__list">
       <li class="admin-header__item">
+        <nuxt-link class="admin-header__exit admin-header__link" to="/">Главная страница</nuxt-link>
+      </li>
+      <li class="admin-header__item">
         <button class="admin-header__exit admin-header__link">Выйти</button>
       </li>
     </ul>
@@ -19,7 +22,7 @@ export default {
 
   &__list {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
     margin-left: -8px;
     margin-right: -8px;
