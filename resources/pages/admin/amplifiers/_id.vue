@@ -22,6 +22,11 @@ export default {
   components: {
     AdminTemplate,
     Pane
-  }
+  },
+  // head() {
+  //   return {
+  //     title: `[SVRLAB-ADMIN] - `
+  //   }
+  // }
 }
 </script>

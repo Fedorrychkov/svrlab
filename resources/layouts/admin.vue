@@ -19,6 +19,11 @@ export default {
   components: {
     SideNav,
     AdminHeader
+  },
+  head() {
+    return {
+      title: '[SVRLAB-ADMIN] - система управления интернет магазином'
+    }
   }
 }
 </script>
