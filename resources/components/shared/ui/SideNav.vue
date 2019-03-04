@@ -40,9 +40,13 @@ export default {
   min-width: var(--admin-sidenav-md-width);
   transition: all .15s ease-in-out;
   height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
 
   &__head {
-    padding: 12px;
+    padding: 6px 0 5px;
     padding-left: 16px;
     background-color: rgba(255, 255, 255, .2);
   }
