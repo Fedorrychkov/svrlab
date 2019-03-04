@@ -1,14 +1,16 @@
 {{{{raw}}}}
 <template>
-  <div class="page page__with-sidenav admin">
-    <side-nav />
-    <div class="page__content page__admin">
-      <admin-header />
-      <main class="page__container">
-        <nuxt />
-      </main>
+  <v-app>
+    <div class="page page__with-sidenav admin">
+      <side-nav />
+      <div class="page__content page__admin">
+        <admin-header />
+        <main class="page__container">
+          <nuxt />
+        </main>
+      </div>
     </div>
-  </div>
+  </v-app>
 </template>
 {{{{/raw}}}}
 <script>

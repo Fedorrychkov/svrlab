@@ -6,8 +6,10 @@
     <template slot="content">
       <pane>
         <template slot="head">
+          <nuxt-link class="button v-btn" to="/admin/amplifiers">Назад</nuxt-link>
         </template>
         <template slot="content">
+          <create-amplifier />
         </template>
       </pane>
     </template>
@@ -16,12 +18,14 @@
 <script>
 import AdminTemplate from '@/components/shared/AdminPageTemplate';
 import Pane from '@/components/shared/Pane';
+import CreateAmplifier from '@/components/core/admin/CreateAmplifier'
 
 export default {
   layout: 'admin',
   components: {
     AdminTemplate,
-    Pane
+    Pane,
+    CreateAmplifier
   },
   // head() {
   //   return {

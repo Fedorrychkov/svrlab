@@ -7,7 +7,7 @@ module.exports = {
   ** Headers of the page
   */
   plugins: [
-    {src: '~/plugins/vue-vuetify', ssr: false},
+    {src: '~/plugins/vue-vuetify', ssr: true},
     // {src: '~/plugins/vue-particles', ssr: false},
     {src: '~/plugins/vue-scrollto', ssr: false},
     {src: '~/plugins/vue-fontawesome', ssr: false},
