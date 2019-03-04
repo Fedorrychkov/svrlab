@@ -1,7 +1,7 @@
 <template>
   <section class="product-page amplifier">
     <div class="product-page__container amplifier__container">
-      <v-form v-model="valid">
+      <v-form v-model="valid" @submit="create" ref="form" lazy-validation>
         <v-layout>
           <v-flex xs12>
             <v-text-field
@@ -13,6 +13,9 @@
             ></v-text-field>
           </v-flex>
         </v-layout>
+        <div class="amplifier__images">
+          <image-list />
+        </div>
         <v-layout>
           <v-flex xs12>
             <v-textarea
@@ -62,17 +65,22 @@
             />
           </v-flex>
         </v-layout>
+        <div class="amplifier__create">
+          <button class="button v-btn" type="submit" @click.prevent="create" :disabled="!valid">Создать товар</button>
+        </div>
       </v-form>
     </div>
   </section>
 </template>
 <script>
 import * as uuid4 from 'uuid/v4';
+import ImageList from '@/components/shared/ui/fileUpload/ImageList';
+import { ADD_AMPLIFIER } from '../../../store/actions/amplifier.js';
 
 export default {
   data() {
     return {
-      valid: false,
+      valid: true,
       search: null,
       isLoading: false,
       addProperty: false,
@@ -81,9 +89,7 @@ export default {
       // Custom Fields
       customFieldNameModel: null,
       customFieldName: null,
-      customFields: [
-        // {id: 1, fieldName: 'haha', fieldValue: ''}
-      ],
+      customFields: [],
       images: [],
       categories: [],
       updatetProps: [],
@@ -113,6 +119,9 @@ export default {
       ],
     }
   },
+  components: {
+    ImageList
+  },
   computed: {
     items () {
       this.updatetProps = [];
@@ -130,15 +139,9 @@ export default {
     console.log(this);
   },
   watch: {
-      search (val) {
-        this.customFieldName = val;
-
-        // if (this.properties.length > 0) return;
-
-        // if (this.isLoading) return
-
-        // this.isLoading = true;
-      }
+    search (val) {
+      this.customFieldName = val;
+    }
   },
   methods: {
     addField(value) {
@@ -150,7 +153,19 @@ export default {
       }
       const field = {id: id, fieldName: value.value, fieldValue: ''};
       this.customFields.push(field);
-    }
+    },
+    create() {
+      const valid = this.$refs.form.validate();
+      if (!valid) return;
+      const product = {
+        name: this.product.title.value,
+        short: this.product.short.value,
+        customFields: this.customFields.length > 0 ? JSON.stringify(this.customFields) : null
+      };
+      this.$store.dispatch(`modules/amplifier/${ADD_AMPLIFIER}`, product).then(res => {
+        console.log(res);
+      });
+    },
   }
 }
 </script>
@@ -193,6 +208,10 @@ export default {
       margin: 20px 0 0;
       font-weight: normal;
     }
+  }
+
+  &__create {
+    margin: 20px 0 0;
   }
 }
 </style>

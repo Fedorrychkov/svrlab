@@ -43,7 +43,7 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 2;
+  z-index: 1;
 
   &__head {
     padding: 6px 0 5px;

@@ -18,6 +18,9 @@ const Route = use('Route')
 
 // base api route
 Route.any('/api', () => 'TODO: Return help about api.')
+Route.post('/api/upload', async ({ request, response }) => (
+  console.log(request)
+}
 
 Route.any('/api/graphql', graphqlAdonis({ schema: schema }));
 

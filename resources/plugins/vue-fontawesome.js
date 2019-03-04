@@ -9,7 +9,8 @@ import {
   faMusic,
   faCog,
   faEdit,
-  faShoppingBasket
+  faShoppingBasket,
+  faCamera
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -18,7 +19,8 @@ library.add(
   faMusic,
   faCog,
   faEdit,
-  faShoppingBasket
+  faShoppingBasket,
+  faCamera
 );
 
 Vue.component(FontAwesomeIcon.name, FontAwesomeIcon);

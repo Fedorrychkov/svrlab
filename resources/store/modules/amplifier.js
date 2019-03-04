@@ -38,25 +38,34 @@ const getters = {
 
 const actions = {
   [ADD_AMPLIFIER]: ({commit, dispatch}, data) => {
+    console.log(data);
     commit(AMPLIFIER_LOADING, true);
     commit(AMPLIFIER_ERROR, false);
     try {
-      this.state.amplifiers.push(data);
+      commit(ADD_AMPLIFIER, data);
       return;
     } catch(e) {
       commit(AMPLIFIER_ERROR, true);
     } finally {
       commit(AMPLIFIER_LOADING, false);
     }
+  },
+  [PUSH_AMPLIFIER_IMAGES]: ({commit, dispatch}, data) => {
+    return Promise((resolve, reject) => {
+
+    });
   }
 };
 
 const mutations = {
+  [ADD_AMPLIFIER]: (state, data) => {
+    state.amplifiers.push(data);
+  },
   [AMPLIFIER_LOADING]: (state, status) => {
-    this.state.loading = status;
+    state.loading = status;
   },
   [AMPLIFIER_ERROR]: (state, status) => {
-    this.state.error = status;
+    state.error = status;
   },
 };
 
