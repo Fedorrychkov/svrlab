@@ -91,7 +91,7 @@ export default {
     margin: 0;
     color: #fff;
 
-    &:hover {
+    &:hover, &.nuxt-link-active {
       background-color: rgba(255, 255, 255, .2);
       color: #fff;
       text-decoration: none;

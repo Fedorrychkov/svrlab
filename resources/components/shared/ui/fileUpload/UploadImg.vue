@@ -62,9 +62,13 @@ export default {
   },
   methods: {
     getFormData(files){
+      let field = 'file';
+      if ([...files].length > 1) {
+        field = 'files';
+      }
       const data = new FormData();
       [...files].forEach(file => {
-        data.append('file', file, file.name); // currently only one file at a time
+        data.append(field, file); // currently only one file at a time
       });
       return data;
     },
@@ -76,8 +80,9 @@ export default {
       });
       const form = this.getFormData(files);
       console.log(form);
-      axios.post('/api/upload', form).then(res => {
-        console.log(res);
+      axios.post('/api/image', form).then(res => {
+        console.log(res, 'loaded');
+        this.$emit('uploaded', res.data.files);
       });
     },
     onFileChange($event){

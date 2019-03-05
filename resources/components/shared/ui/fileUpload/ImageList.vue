@@ -1,12 +1,12 @@
 <template>
   <aside class="image-list">
     <h4 class="image-list__title">Изображения товара</h4>
-    <div class="image-list__item" v-for="item in items" :key="item.name" @click="click(item.id)">
+    <div class="image-list__item" v-for="item in items" :key="item" @click="click(item, 'preview')">
       <div class="image-item">
-        <img src="/uploads/1.jpeg" alt="">
+        <img :src="`/uploads/${item}`" alt="">
       </div>
     </div>
-    <upload-img class="image-list__item" />
+    <upload-img class="image-list__item" @uploaded="uploaded" />
   </aside>
 </template>
 <script>
@@ -22,8 +22,16 @@ export default {
     UploadImg
   },
   methods: {
-    click() {
-      this.callback({mainId: id})
+    uploaded(files) {
+      this.items = this.items.concat(files);
+
+      this.$emit('uploaded', files);
+    },
+    click(item, type) {
+      this.callback({
+        mainPhoto: type === 'preview' ? item : '',
+        deletePhoto: ''
+      });
     }
   }
 }
@@ -44,12 +52,17 @@ export default {
       color: rgba(0,0,0,.54);
     }
 
-    &__item, .image-item {
+    &__item {
       border-radius: 4px;
       margin: 15px;
       width: 80px;
       height: 80px;
       overflow: hidden;
+
+      .image-item {
+        width: 100%;
+        height: 100%;
+      }
 
       img {
         display: block;

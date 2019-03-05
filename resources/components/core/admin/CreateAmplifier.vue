@@ -14,7 +14,7 @@
           </v-flex>
         </v-layout>
         <div class="amplifier__images">
-          <image-list />
+          <image-list @uploaded="imageUpload" :callback="imageListCallback" />
         </div>
         <v-layout>
           <v-flex xs12>
@@ -91,6 +91,7 @@ export default {
       customFieldName: null,
       customFields: [],
       images: [],
+      mainPhoto: '',
       categories: [],
       updatetProps: [],
       properties: [
@@ -144,6 +145,12 @@ export default {
     }
   },
   methods: {
+    imageUpload(files) {
+      this.images = this.images.concat(files);
+    },
+    imageListCallback(data) {
+      this.mainPhoto = data.mainPhoto;
+    },
     addField(value) {
       value.text = value.value
       const id = uuid4();
@@ -160,7 +167,9 @@ export default {
       const product = {
         name: this.product.title.value,
         short: this.product.short.value,
-        customFields: this.customFields.length > 0 ? JSON.stringify(this.customFields) : null
+        customFields: this.customFields.length > 0 ? JSON.stringify(this.customFields) : null,
+        mainPhoto: this.mainPhoto,
+        images: this.images
       };
       this.$store.dispatch(`modules/amplifier/${ADD_AMPLIFIER}`, product).then(res => {
         console.log(res);
