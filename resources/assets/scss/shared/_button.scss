@@ -12,4 +12,8 @@
     color: #fff;
     text-decoration: none;
   }
+
+  &:disabled {
+    background-color: #8f9ba9;
+  }
 }
