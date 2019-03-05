@@ -87,6 +87,8 @@ module.exports = {
   |
   |
   */
+  multiple: true,
+  hash: false,
   files: {
     types: [
       'multipart/form-data'
