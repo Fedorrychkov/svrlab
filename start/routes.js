@@ -14,13 +14,12 @@
 */
 const { graphqlAdonis, graphiqlAdonis } = require('apollo-server-adonis');
 const schema = require('../app/Data/Schema');
-const Route = use('Route')
+const Route = use('Route');
 
 // base api route
 Route.any('/api', () => 'TODO: Return help about api.')
-Route.post('/api/upload', async ({ request, response }) => (
-  console.log(request)
-}
+Route.post('/api/image', 'ImageController.upload');
+Route.get('/api/images', 'ImageController.all');
 
 Route.any('/api/graphql', graphqlAdonis({ schema: schema }));
 
