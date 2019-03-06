@@ -1,7 +1,8 @@
 'use strict'
 
 const resolve = require('path').resolve
-
+const Env = use('Env')
+const PORT = Env.get('PORT');
 module.exports = {
   /*
   ** Headers of the page
@@ -35,7 +36,7 @@ module.exports = {
     clientConfigs: {
       default: {
         // required
-        httpEndpoint: 'http://localhost:3000/api/graphql',
+        httpEndpoint: `http://localhost:${PORT}/api/graphql`,
         // optional
         // See https://www.apollographql.com/docs/link/links/http.html#options
         httpLinkOptions: {
@@ -53,7 +54,7 @@ module.exports = {
         websocketsOnly: false // Optional
       },
       test: {
-        httpEndpoint: 'http://localhost:3000/api/graphql',
+        httpEndpoint: `http://localhost:${PORT}/api/graphql`,
         wsEndpoint: null,
         tokenName: 'apollo-token'
       },

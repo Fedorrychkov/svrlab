@@ -26,6 +26,7 @@ import AdminTemplate from '@/components/shared/AdminPageTemplate';
 import Pane from '@/components/shared/Pane';
 import ProductCard from '@/components/core/admin/ProductCard'
 import { GET_AMPLIFIERS } from '@/store/actions/amplifier.js';
+import gql from 'graphql-tag';
 
 export default {
   layout: 'admin',
@@ -50,6 +51,14 @@ export default {
       }).finally(() => {
         this.loading = false;
       });
+  },
+  mounted() {
+
+    // this.$apollo.query({ query: gql`{amplifiers {id, name}}`})
+    //   .then(({ data }) => {
+    //     console.log(data);
+    //     // do what you want with data
+    // });
   },
   components: {
     AdminTemplate,
