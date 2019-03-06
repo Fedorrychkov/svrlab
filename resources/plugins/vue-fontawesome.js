@@ -10,7 +10,9 @@ import {
   faCog,
   faEdit,
   faShoppingBasket,
-  faCamera
+  faCamera,
+  faTimes,
+  faHome,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -20,7 +22,9 @@ library.add(
   faCog,
   faEdit,
   faShoppingBasket,
-  faCamera
+  faCamera,
+  faTimes,
+  faHome,
 );
 
 Vue.component(FontAwesomeIcon.name, FontAwesomeIcon);

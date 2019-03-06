@@ -2,10 +2,23 @@
 
 const Helpers = use('Helpers')
 const Image = use('App/Models/Image')
+const Drive = use('Drive')
 
 class ImageController {
   async all ({request, response}) {
     return await Image.all();
+  }
+
+  async delete ({request, params}) {
+    const { id } = params;
+    try {
+      const image = await Image.find(id);
+      image.delete();
+      await Drive.delete(`${Helpers.resourcesPath('static/uploads')}/${image.large}`);
+      response.ok('success');
+    } catch(err) {
+      response.badRequest(err);
+    }
   }
 
   async upload ({request, response}) {
@@ -35,16 +48,17 @@ class ImageController {
           return files.errors()
         }
 
-        // await filesPath.forEach(async (name) => {
-        //   const image = new Image();
-        //   image.path = 'uploads';
-        //   image.large = image.preview = name;
-        //   await image.save();
-        // });
+        let images = [];
+        await Promise.all(filesPath.map(async (name) => {
+          const image = new Image();
+          image.path = 'uploads';
+          image.large = image.preview = name;
+          await image.save();
+          images.push(image);
+        }));
 
-        response.ok({files: filesPath});
+        response.ok({files: images});
       } catch(err) {
-        console.log(err);
         response.badRequest(err);
       }
     } else {
@@ -57,25 +71,16 @@ class ImageController {
           return file.error()
         }
 
-        // const image = new Image();
-        // image.path = 'uploads';
-        // image.large = image.preview = filePath;
-        // image.save();
-        // const img2 = await Image.findBy('large', filePath);
+        const image = new Image();
+        image.path = 'uploads';
+        image.large = image.preview = filePath;
+        await image.save();
 
-        // TODO: Create images in BD when we create Product
-
-        response.ok({files: [filePath]});
+        response.ok({files: [image]});
       } catch (err) {
-        console.log(err);
         response.badRequest(err);
       }
     }
-    // if (!file.moved()) {
-      // response.badRequest({error: file.errors()});
-      // return;
-    // }
-    // response.ok({success: 'Files upload'});
   }
 }
 

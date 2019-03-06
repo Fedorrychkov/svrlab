@@ -10,11 +10,11 @@
         </template>
         <template slot="content">
 
-          <div class="list" v-if="products.length > 0">
-            <product-card v-for="item in products" :key="item.id" :item="item" :link="`/admin/amplifiers/${item.id}`"/>
+          <div class="list" v-if="amplifiers.length > 0">
+            <product-card v-for="item in amplifiers" :key="item.id" :item="item" :link="`/admin/amplifiers/${item.id}`"/>
           </div>
-          <p class="content-empty" v-if="products.length < 1">Список товаров пуст :(</p>
-
+          <p class="content-empty" v-if="amplifiers.length < 1 && !loading">Список товаров пуст :(</p>
+          <p class="content-empty" v-if="loading">Загрузка...</p>
         </template>
       </pane>
     </template>
@@ -25,6 +25,7 @@
 import AdminTemplate from '@/components/shared/AdminPageTemplate';
 import Pane from '@/components/shared/Pane';
 import ProductCard from '@/components/core/admin/ProductCard'
+import { GET_AMPLIFIERS } from '@/store/actions/amplifier.js';
 
 export default {
   layout: 'admin',
@@ -35,19 +36,20 @@ export default {
   },
   data() {
     return {
-      products: [
-        {
-          id: "1",
-          name: 'Однотактный усилитель',
-          short: 'Однотактный усилитель для небольших помещений',
-        },
-        {
-          id: "2",
-          name: 'Двухтактный усилитель',
-          short: 'Двухтактный усилитель для малых и средних помещений',
-        }
-      ]
+      loading: true,
     }
+  },
+  computed: {
+    amplifiers() {
+      return this.$store.getters[`modules/amplifier/amplifiers`];
+    }
+  },
+  created() {
+    this.$store.dispatch(`modules/amplifier/${GET_AMPLIFIERS}`)
+      .catch(err => {
+      }).finally(() => {
+        this.loading = false;
+      });
   },
   components: {
     AdminTemplate,
