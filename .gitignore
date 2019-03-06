@@ -3,6 +3,7 @@ node_modules
 
 # Ignoring everything inside storage directory
 storage/*
+resources/static/uploads
 
 # Keeping storage directory
 !storage/.gitkeep
