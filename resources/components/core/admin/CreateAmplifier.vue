@@ -91,7 +91,7 @@ export default {
       customFieldName: null,
       customFields: [],
       images: [],
-      mainPhoto: '',
+      mainPhoto: null,
       categories: [],
       updatetProps: [],
       properties: [
@@ -137,7 +137,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this);
   },
   watch: {
     search (val) {
@@ -152,7 +151,6 @@ export default {
       this.mainPhoto = data.mainPhoto;
     },
     addField(value) {
-      value.text = value.value
       const id = uuid4();
       const items = this.customFields.filter(item => value.value === item.fieldName);
       if (items.length > 0) {
@@ -160,6 +158,8 @@ export default {
       }
       const field = {id: id, fieldName: value.value, fieldValue: ''};
       this.customFields.push(field);
+      value.text = '';
+      value.value = '';
     },
     create() {
       const valid = this.$refs.form.validate();
@@ -167,13 +167,16 @@ export default {
       const product = {
         name: this.product.title.value,
         short: this.product.short.value,
-        customFields: this.customFields.length > 0 ? JSON.stringify(this.customFields) : null,
+        customFields: this.customFields.length > 0 ? JSON.stringify(this.customFields) : [],
         mainPhoto: this.mainPhoto,
         images: this.images
       };
-      this.$store.dispatch(`modules/amplifier/${ADD_AMPLIFIER}`, product).then(res => {
-        console.log(res);
-      });
+      this.$store.dispatch(`modules/amplifier/${ADD_AMPLIFIER}`, product)
+        .then(res => {
+          if (res.status === 200) {
+            this.$router.push(`/admin/amplifiers`);
+          }
+        });
     },
   }
 }

@@ -10,6 +10,7 @@ import {
   AMPLIFIER_SUCCESS
 } from "../actions/amplifier";
 import gql from 'graphql-tag';
+import axios from 'axios';
 
 const amplifierMock = {
   id: 1,
@@ -38,17 +39,36 @@ const getters = {
 
 const actions = {
   [ADD_AMPLIFIER]: ({commit, dispatch}, data) => {
-    console.log(data);
+    data.customFields = JSON.stringify(data.customFields);
+    const images = data.images.map(item => {
+      return item.id;
+    });
+    data.images = JSON.stringify(images);
     commit(AMPLIFIER_LOADING, true);
     commit(AMPLIFIER_ERROR, false);
-    try {
-      commit(ADD_AMPLIFIER, data);
-      return;
-    } catch(e) {
-      commit(AMPLIFIER_ERROR, true);
-    } finally {
-      commit(AMPLIFIER_LOADING, false);
-    }
+    return new Promise((resolve, reject) => {
+      axios.post('/api/amplifier', data).then(res => {
+        resolve(res);
+      }).catch(err => {
+        commit(AMPLIFIER_ERROR, true);
+      }).finally(() => {
+        commit(AMPLIFIER_LOADING, false);
+      });
+    });
+  },
+  [GET_AMPLIFIERS]: ({commit, dispatch}) => {
+    commit(AMPLIFIER_LOADING, true);
+    return new Promise((resolve, rej) => {
+      axios.get('/api/amplifier').then(res => {
+        commit(GET_AMPLIFIERS, res.data);
+        resolve(res);
+      }).catch(err => {
+        rej(err);
+        commit(AMPLIFIER_ERROR, true);
+      }).finally( () => {
+        commit(AMPLIFIER_LOADING, false);
+      });
+    });
   },
   [PUSH_AMPLIFIER_IMAGES]: ({commit, dispatch}, data) => {
     return Promise((resolve, reject) => {
@@ -67,6 +87,13 @@ const mutations = {
   [AMPLIFIER_ERROR]: (state, status) => {
     state.error = status;
   },
+  [GET_AMPLIFIERS]: (state, data) => {
+    state.amplifiers = data.map(item => {
+      item.customFields = JSON.parse(item.customFields);
+      item.images = JSON.parse(item.images);
+      return item;
+    });
+  }
 };
 
 export default {
