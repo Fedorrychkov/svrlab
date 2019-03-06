@@ -3,14 +3,26 @@ const Amplifier = use('App/Models/Amplifier');
 
 class AmplifierController {
   async create ({request, response}) {
-    const data = request.only(['name', 'short', 'customFields', 'mainPhoto', 'images']);
+    const {
+      isAvailable = true,
+      inventory = 0,
+      cost = 0,
+      images,
+      mainPhoto,
+      customFields,
+      short,
+      name,
+    } = request.only(['name', 'short', 'customFields', 'mainPhoto', 'images', 'cost', 'inventory', 'isAvailable']);
     try {
       const amplifier = new Amplifier();
-      amplifier.name = data.name;
-      amplifier.short = data.short;
-      amplifier.customFields = data.customFields;
-      amplifier.mainPhoto = data.mainPhoto;
-      amplifier.images = data.images;
+      amplifier.name = name;
+      amplifier.short = short;
+      amplifier.customFields = customFields;
+      amplifier.mainPhoto = mainPhoto;
+      amplifier.images = images;
+      amplifier.cost = cost;
+      amplifier.inventory = inventory;
+      amplifier.isAvailable = isAvailable;
 
       await amplifier.save();
       response.ok(amplifier);
@@ -20,7 +32,8 @@ class AmplifierController {
   }
 
   async all ({response}) {
-    return await Amplifier.all();
+    const amplifiers = await Amplifier.all();
+    return amplifiers.toJSON().reverse();
   }
 }
 

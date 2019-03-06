@@ -53,7 +53,6 @@ export default {
       });
   },
   mounted() {
-
     // this.$apollo.query({ query: gql`{amplifiers {id, name}}`})
     //   .then(({ data }) => {
     //     console.log(data);

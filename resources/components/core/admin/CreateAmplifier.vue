@@ -29,6 +29,32 @@
             ></v-textarea>
           </v-flex>
         </v-layout>
+        <v-layout>
+          <v-flex>
+            <v-switch
+              v-model="product.isAvailable.value"
+              :label="`${product.isAvailable.value ? product.isAvailable.true : product.isAvailable.false}`"
+            ></v-switch>
+          </v-flex>
+        </v-layout>
+        <v-layout justify-space-between flex-wrap>
+          <v-flex xs12 md5>
+            <v-text-field
+              type="number"
+              v-model="product.inventory.value"
+              label="Количество"
+              required
+            ></v-text-field>
+          </v-flex>
+          <v-flex xs12 md5>
+            <v-text-field
+              type="number"
+              v-model="product.cost.value"
+              label="Цена"
+              required
+            ></v-text-field>
+          </v-flex>
+        </v-layout>
 
         <div class="amplifier__layout-wrap">
           <div class="amplifier__props">
@@ -112,6 +138,17 @@ export default {
             v => !!v || 'Описание продукта является обязательным',
             v => v.length <= 300 || 'Описание должно быть меньше 300 символов'
           ],
+        },
+        isAvailable: {
+          value: true,
+          true: 'Доступен для заказа',
+          false: 'Снят с продажи'
+        },
+        inventory: {
+          value: 0,
+        },
+        cost: {
+          value: 0,
         }
       },
       requiredRule: [
@@ -171,11 +208,14 @@ export default {
         mainPhoto: this.mainPhoto,
         images: this.images
       };
+      this.valid = false;
       this.$store.dispatch(`modules/amplifier/${ADD_AMPLIFIER}`, product)
         .then(res => {
           if (res.status === 200) {
             this.$router.push(`/admin/amplifiers`);
           }
+        }).finally(() => {
+          this.valid = true;
         });
     },
   }
