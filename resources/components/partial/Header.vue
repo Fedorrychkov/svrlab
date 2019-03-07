@@ -19,7 +19,7 @@ export default {
 <style lang="scss">
 .header {
   padding: var(--offset-md) 0;
-  background-color: var(--footer);
+  background-color: var(--primary-color);
 
   .logo {
     font-weight: 600;

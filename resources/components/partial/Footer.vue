@@ -8,7 +8,7 @@
 <style lang="scss">
 .footer {
   padding: var(--offset-md) 0;
-  background-color: var(--footer);
+  background-color: var(--primary-color);
   color: #fff;
   font-weight: 600;
 
