@@ -246,6 +246,7 @@ export default {
         images: this.images,
         cost: this.product.cost.value,
         inventory: this.product.inventory.value,
+        isAvailable: this.product.isAvailable.value
       };
       if (this.id) {
         product.id = this.id;
