@@ -8,6 +8,12 @@
         <template slot="head">
         </template>
         <template slot="content">
+          <p>Способы оплаты</p>
+          <p>Способы доставки</p>
+          <p>Сменить пароль администратора</p>
+          <p>Почта магазина</p>
+          <p>Телефон магазина</p>
+          <p>Адрес магазина</p>
         </template>
       </pane>
     </template>
