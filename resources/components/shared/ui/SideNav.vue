@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       nav: [
-        { name: 'Доска', link: '/admin/dashboard', icon: 'columns' },
+        { name: 'Аналитика', link: '/admin/dashboard', icon: 'columns' },
         { name: 'Заказы', link: '/admin/orders', icon: 'shopping-basket' },
         { name: 'Усилители', link: '/admin/amplifiers', icon: 'archive' },
         { name: 'Музыка', link: '/admin/musics', icon: 'music' },
