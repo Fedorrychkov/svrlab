@@ -9,7 +9,7 @@ class ImageController {
     return await Image.all();
   }
 
-  async delete ({request, params}) {
+  async delete ({request, response, params}) {
     const { id } = params;
     try {
       const image = await Image.find(id);
