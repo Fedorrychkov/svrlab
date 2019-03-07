@@ -2,8 +2,16 @@
   <article class="product-item">
     <div class="product-item__container">
       <div class="product-item__meta item">
-        <h4 class="product-item__title"><nuxt-link :to="link">{{item.name}}</nuxt-link></h4>
-        <p class="product-item__short">{{item.short}}</p>
+        <nuxt-link class="product-item__preview" v-if="item.images.length > 0" :to="`/amplifiers/${item.id}`">
+          <template v-for="img in item.images" >
+            <img :src="`/${img.path}/${img.large}`" :alt="`Картинка для ${item.name}`" :key="img.id" v-if="item.mainPhoto && item.mainPhoto === img.id" />
+          </template>
+          <img :src="`/${item.images[0].path}/${item.images[0].large}`" :alt="`Картинка для ${item.name}`" v-if="!item.mainPhoto" />
+        </nuxt-link>
+        <div class="product-item__info">
+          <h4 class="product-item__title"><nuxt-link :to="link">{{item.name}}</nuxt-link></h4>
+          <p class="product-item__short">{{item.short}}</p>
+        </div>
       </div>
       <div class="product-item__controlls">
         <no-ssr>
@@ -24,6 +32,25 @@ export default {
   margin-right: -15px;
   padding: 15px;
   transition: all .15s ease-in-out;
+
+  &__preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 120px;
+    height: 120px;
+    background-color: #f3f5f8;
+    margin-right: 15px;
+    border-radius: 4px;
+    overflow: hidden;
+
+    img {
+      margin: 0 auto;
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+  }
 
   &:hover {
     background-color: #ECEFF1;
@@ -57,6 +84,9 @@ export default {
 
   &__meta {
     width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
   }
 
   &__controlls {
