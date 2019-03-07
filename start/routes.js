@@ -21,9 +21,11 @@ Route.any('/api', () => 'TODO: Return help about api.')
 Route.post('/api/image', 'ImageController.upload');
 Route.get('/api/images', 'ImageController.all');
 Route.delete('/api/images/:id', 'ImageController.delete');
+
 Route.post('/api/amplifier', 'AmplifierController.create');
 Route.put('/api/amplifier', 'AmplifierController.update');
 Route.get('/api/amplifier', 'AmplifierController.all');
+Route.get('/api/amplifier/:id', 'AmplifierController.get');
 
 Route.any('/api/graphql', graphqlAdonis({ schema: schema }));
 
