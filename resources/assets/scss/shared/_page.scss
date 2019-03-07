@@ -24,4 +24,8 @@
   &__container {
     padding: 0 15px;
   }
+
+  &__default {
+    background-color: var(--primary-color)
+  }
 }
