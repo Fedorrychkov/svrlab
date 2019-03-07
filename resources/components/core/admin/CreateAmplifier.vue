@@ -42,6 +42,7 @@
             <v-text-field
               type="number"
               v-model="product.inventory.value"
+              :rules="required"
               label="Количество"
               required
             ></v-text-field>
@@ -50,6 +51,7 @@
             <v-text-field
               type="number"
               v-model="product.cost.value"
+              :rules="required"
               label="Цена"
               required
             ></v-text-field>
@@ -151,9 +153,12 @@ export default {
           value: 0,
         }
       },
+      required: [
+        v => !!v || 'Поле является обязательным',
+      ],
       requiredRule: [
         v => !!v || 'Поле является обязательным',
-        v => v.length <= 120 || 'Значение не должно превышать 300 символов'
+        v => v.length <= 300 || 'Значение не должно превышать 300 символов'
       ],
     }
   },
