@@ -14,7 +14,7 @@
           </v-flex>
         </v-layout>
         <div class="amplifier__images">
-          <image-list @uploaded="imageUpload" :callback="imageListCallback" />
+          <image-list @uploaded="imageUpload" :callback="imageListCallback" :list="imageList" v-if="loaded" :mainPhoto="mainPhoto" />
         </div>
         <v-layout>
           <v-flex xs12>
@@ -42,18 +42,14 @@
             <v-text-field
               type="number"
               v-model="product.inventory.value"
-              :rules="required"
               label="Количество"
-              required
             ></v-text-field>
           </v-flex>
           <v-flex xs12 md5>
             <v-text-field
               type="number"
               v-model="product.cost.value"
-              :rules="required"
               label="Цена"
-              required
             ></v-text-field>
           </v-flex>
         </v-layout>
@@ -94,7 +90,14 @@
           </v-flex>
         </v-layout>
         <div class="amplifier__create">
-          <button class="button v-btn" type="submit" @click.prevent="create" :disabled="!valid">Создать товар</button>
+          <button class="button v-btn" type="submit" @click.prevent="create" :disabled="!valid">
+            <template v-if="!edit">
+              Создать товар
+            </template>
+            <template v-if="edit">
+              Изменить товар
+            </template>
+          </button>
         </div>
       </v-form>
     </div>
@@ -103,22 +106,23 @@
 <script>
 import * as uuid4 from 'uuid/v4';
 import ImageList from '@/components/shared/ui/fileUpload/ImageList';
-import { ADD_AMPLIFIER } from '../../../store/actions/amplifier.js';
+import { ADD_AMPLIFIER, UPDATE_AMPLIFIER } from '../../../store/actions/amplifier.js';
 
 export default {
+  props: ['edit'],
   data() {
     return {
+      id: null,
       valid: true,
+      loaded: true,
       search: null,
       isLoading: false,
       addProperty: false,
-      // Images
-      // Categories
-      // Custom Fields
       customFieldNameModel: null,
       customFieldName: null,
       customFields: [],
       images: [],
+      imageList: [],
       mainPhoto: null,
       categories: [],
       updatetProps: [],
@@ -165,6 +169,11 @@ export default {
   components: {
     ImageList
   },
+  head() {
+    return {
+      title: `[SVRLAB-ADMIN] - ${this.product.title.value}`
+    }
+  },
   computed: {
     items () {
       this.updatetProps = [];
@@ -176,9 +185,32 @@ export default {
       return this.updatetProps.map(item => {
         return item;
       });
+    },
+    amplifier() {
+      return this.$store.getters[`modules/amplifier/amplifier`];
     }
   },
   mounted() {
+    if (this.edit) {
+      this.loaded = false;
+      this.id = this.amplifier.id;
+      this.product.title.value = this.amplifier.name;
+      this.product.short.value = this.amplifier.short;
+      this.product.isAvailable.value = this.amplifier.isAvailable;
+      this.product.cost.value = this.amplifier.cost;
+      this.product.inventory.value = this.amplifier.inventory;
+      this.customFields = this.amplifier.customFields;
+      if (this.amplifier.customFields && this.amplifier.customFields.length > 0) {
+        this.addProperty = true;
+      }
+      this.mainPhoto = this.amplifier.mainPhoto;
+      this.images = this.amplifier.images;
+      this.imageList = this.images;
+
+      setTimeout(() => {
+        this.loaded = true;
+      }, 300);
+    }
   },
   watch: {
     search (val) {
@@ -211,10 +243,16 @@ export default {
         short: this.product.short.value,
         customFields: this.customFields.length > 0 ? JSON.stringify(this.customFields) : [],
         mainPhoto: this.mainPhoto,
-        images: this.images
+        images: this.images,
+        cost: this.product.cost.value,
+        inventory: this.product.inventory.value,
       };
+      if (this.id) {
+        product.id = this.id;
+      }
       this.valid = false;
-      this.$store.dispatch(`modules/amplifier/${ADD_AMPLIFIER}`, product)
+      const status = this.edit ? UPDATE_AMPLIFIER : ADD_AMPLIFIER;
+      this.$store.dispatch(`modules/amplifier/${status}`, product)
         .then(res => {
           if (res.status === 200) {
             this.$router.push(`/admin/amplifiers`);

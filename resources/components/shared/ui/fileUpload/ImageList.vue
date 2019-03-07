@@ -2,7 +2,7 @@
   <aside class="image-list">
     <h4 class="image-list__title">Изображения товара</h4>
     <div class="image-list__item" v-for="item in items" :key="item.id">
-      <div class="image-item">
+      <div :class="{'image-item': true, 'main': mainPhoto === item.id}">
         <img :src="`/uploads/${item.large}`" alt="">
       </div>
       <div class="placeholder">
@@ -24,9 +24,14 @@ export default {
       items: []
     }
   },
-  props: ['callback'],
+  props: ['callback', 'list', 'mainPhoto'],
   components: {
     UploadImg
+  },
+  mounted() {
+    if (this.list) {
+      this.items = this.items.concat(this.list);
+    }
   },
   methods: {
     uploaded(files) {
@@ -112,6 +117,10 @@ export default {
         width: 100%;
         height: 100%;
         cursor: pointer;
+
+        &.main {
+          border: 4px solid var(--footer);
+        }
       }
 
       img {

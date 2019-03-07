@@ -11,7 +11,7 @@
         <template slot="content">
 
           <div class="list" v-if="amplifiers.length > 0">
-            <product-card v-for="item in amplifiers" :key="item.id" :item="item" :link="`/admin/amplifiers/${item.id}`"/>
+            <product-card v-for="item in amplifiers" :key="item.id" :item="item" :link="`/admin/amplifiers/edit/${item.id}`"/>
           </div>
           <p class="content-empty" v-if="amplifiers.length < 1 && !loading">Список товаров пуст :(</p>
           <p class="content-empty" v-if="loading">Загрузка...</p>
