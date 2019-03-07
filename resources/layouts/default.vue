@@ -1,5 +1,5 @@
 <template>
-  <div class="page page__full">
+  <div class="page page__full page__default">
     <div class="page__content">
       <my-header/>
       <nuxt/>
