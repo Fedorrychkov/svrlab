@@ -15,7 +15,7 @@
       </div>
       <div class="product-item__controlls">
         <no-ssr>
-          <button><nuxt-link :to="link"><font-awesome-icon :icon="['fa', 'edit']" /></nuxt-link></button>
+          <button><nuxt-link :to="link"><font-awesome-icon class="icon" :icon="['fa', 'edit']" /></nuxt-link></button>
         </no-ssr>
       </div>
     </div>

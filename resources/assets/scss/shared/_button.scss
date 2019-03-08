@@ -16,4 +16,19 @@
   &:disabled {
     background-color: #8f9ba9;
   }
+
+  &__add {
+    background-color: transparent;
+    border: 1px solid var(--footer);
+    border-radius: 4px;
+    overflow: hidden;
+
+    .icon {
+      margin-right: 8px;
+    }
+
+    &:hover {
+      background-color: var(--footer);
+    }
+  }
 }

@@ -41,6 +41,10 @@ export default {
       color: #fff;
       opacity: .8;
     }
+
+    &.nuxt-link-active {
+      font-weight: 600;
+    }
   }
 }
 </style>

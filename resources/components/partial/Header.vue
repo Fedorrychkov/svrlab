@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <div class="container header__container">
-      <Logo />
+      <nuxt-link to="/" class="header__logo"> <Logo /> </nuxt-link>
       <main-nav />
     </div>
   </header>
@@ -21,8 +21,15 @@ export default {
   padding: var(--offset-md) 0;
   background-color: var(--primary-color);
 
+  &__logo {
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
   .logo {
     font-weight: 600;
+    font-size: 24px;
   }
 
   &__container {
