@@ -13,6 +13,8 @@ import {
   faCamera,
   faTimes,
   faHome,
+  faShoppingCart,
+  faCartPlus,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -25,6 +27,8 @@ library.add(
   faCamera,
   faTimes,
   faHome,
+  faShoppingCart,
+  faCartPlus,
 );
 
 Vue.component(FontAwesomeIcon.name, FontAwesomeIcon);
