@@ -87,5 +87,19 @@ export default {
       margin: 0 8px;
     }
   }
+
+  @media (max-width: 992px) {
+    width: 50%;
+  }
+
+  @media (max-width: 660px) {
+    &__preview {
+      height: 180px;
+    }
+  }
+
+  @media (max-width: 400px) {
+    width: 100%;
+  }
 }
 </style>
