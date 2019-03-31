@@ -12,9 +12,9 @@ export default {
   data() {
     return {
       nav: [
-        {link: 'musics', name: 'Musics'},
-        {link: 'amplifiers', name: 'Amplifiers'},
-        {link: 'about', name: 'About'},
+        {link: '/musics', name: 'Musics'},
+        {link: '/amplifiers', name: 'Amplifiers'},
+        {link: '/about', name: 'About'},
       ]
     }
   }
