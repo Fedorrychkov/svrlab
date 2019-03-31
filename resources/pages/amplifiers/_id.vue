@@ -22,6 +22,7 @@
               <i class="symbol rouble">₽</i>
             </span>
           </p>
+          <icon-button text="Добавить в корзину" icon="cart-plus" @click="addProductToBasket()" />
         </div>
       </div>
       <div class="amplifier-page__content">
@@ -32,6 +33,8 @@
 </template>
 <script>
 import { GET_AMPLIFIER } from '@/store/actions/amplifier.js';
+import { ADD_TO_BASKET } from '@/store/actions/cart.js';
+import IconButton from '@/components/shared/ui/IconButton';
 
 export default {
   data() {
@@ -39,6 +42,9 @@ export default {
       loading: true,
       id: null,
     }
+  },
+  components: {
+    IconButton
   },
   computed: {
     amplifier() {
@@ -53,6 +59,12 @@ export default {
         this.loading = false;
       });
   },
+  methods: {
+    addProductToBasket() {
+      this.$store.dispatch(`modules/cart/${ADD_TO_BASKET}`, this.amplifier).then(() => {
+      });
+    }
+  }
 }
 </script>
 <style lang="scss">
