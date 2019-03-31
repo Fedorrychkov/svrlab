@@ -2,17 +2,22 @@
   <header class="header">
     <div class="container header__container">
       <nuxt-link to="/" class="header__logo"> <Logo /> </nuxt-link>
-      <main-nav />
+      <div class="header__right">
+        <main-nav />
+        <shopping-cart />
+      </div>
     </div>
   </header>
 </template>
 <script>
 import Logo from '../shared/Logo';
 import MainNav from '../shared/ui/MainNav';
+import ShoppingCart from '../shared/ShoppingCart';
 export default {
   components: {
     Logo,
-    MainNav
+    MainNav,
+    ShoppingCart
   }
 }
 </script>
@@ -32,7 +37,7 @@ export default {
     font-size: 24px;
   }
 
-  &__container {
+  &__container, &__right {
     display: flex;
     justify-content: space-between;
     align-items: center;
