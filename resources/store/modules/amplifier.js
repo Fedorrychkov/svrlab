@@ -94,6 +94,7 @@ const actions = {
     return new Promise((resolve, rej) => {
       axios.get(`/api/amplifier/${id}`).then(res => {
         commit(GET_AMPLIFIER, res.data);
+        console.log(res);
         resolve(res);
       }).catch(err => {
         rej(err);
