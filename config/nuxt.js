@@ -8,6 +8,7 @@ module.exports = {
   ** Headers of the page
   */
   plugins: [
+    {src: '~/plugins/numformat', ssr: false},
     {src: '~/plugins/vue-vuetify', ssr: true},
     // {src: '~/plugins/vue-particles', ssr: false},
     {src: '~/plugins/vue-scrollto', ssr: false},
