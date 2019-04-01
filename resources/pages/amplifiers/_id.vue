@@ -1,5 +1,5 @@
 <template>
-  <div :class="{'amplifier-page': true, 'loading': loading}">
+  <div :class="{'amplifier-page': true, 'loading': loading}" v-if="!loading">
     <div class="container">
       <div class="amplifier-page__container">
         <aside class="amplifier-page__left">
@@ -8,7 +8,7 @@
           </ul>
           <div class="amplifier-page__preview">
             <template v-for="img in amplifier.images">
-              <img :src="`/${img.path}/${img.large}`" :alt="`Картинка для ${item.name}`" :key="img.id" v-if="amplifier.mainPhoto && amplifier.mainPhoto === img.id" />
+              <img :src="`/${img.path}/${img.large}`" :alt="`Картинка для ${img.name}`" :key="img.id" v-if="amplifier.mainPhoto && amplifier.mainPhoto === img.id" />
             </template>
             <img v-if="!loading && !amplifier.mainPhoto" :src="`/${amplifier.images[0].path}/${amplifier.images[0].large}`" :alt="`Картинка для ${amplifier.name}`" />
           </div>

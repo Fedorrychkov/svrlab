@@ -23,6 +23,7 @@
           </div>
         </li>
       </ul>
+      <nuxt-link to="/cart/checkout" class="checkout-button" @click="goCheckout()" v-if="this.products.length > 0">Оформить заказ</nuxt-link>
     </div>
   </aside>
 </template>
@@ -61,6 +62,9 @@ export default {
     // this.$store.dispatch(GET_BASKET);
   },
   methods: {
+    goCheckout() {
+      console.log('checkout');
+    },
     toggleBasketHide(e) {
       e.stopImmediatePropagation()
       const close = () => {
@@ -112,12 +116,36 @@ export default {
     }
   }
 
+  .checkout-button {
+    margin: 20px 0 10px;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+    padding: 10px 15px;
+    display: block;
+    transition: all .15s ease-in-out;
+    width: 100%;
+    text-align: center;
+
+    &:hover {
+      text-decoration: none;
+      background-color: var(--primary-color);
+      color: var(--second-color);
+    }
+  }
+
   .icon {
     cursor: pointer;
   }
 
+  &__products {
+    margin: -8px 0;
+  }
+
   &__product {
     display: flex;
+    margin: 8px 0;
   }
 
   &__meta {
