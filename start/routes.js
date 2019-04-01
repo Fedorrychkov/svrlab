@@ -18,14 +18,25 @@ const Route = use('Route');
 
 // base api route
 Route.any('/api', () => 'TODO: Return help about api.')
-Route.post('/api/image', 'ImageController.upload');
-Route.get('/api/images', 'ImageController.all');
-Route.delete('/api/images/:id', 'ImageController.delete');
 
-Route.post('/api/amplifier', 'AmplifierController.create');
-Route.put('/api/amplifier', 'AmplifierController.update');
-Route.get('/api/amplifier', 'AmplifierController.all');
-Route.get('/api/amplifier/:id', 'AmplifierController.get');
+Route.post('/api/image', 'ImageController.upload');
+Route.group(() => {
+  Route.get('', 'ImageController.all');
+  Route.delete(':id', 'ImageController.delete');
+}).prefix('api/images')
+
+Route.group(() => {
+  Route.post('', 'AmplifierController.create');
+  Route.put('', 'AmplifierController.update');
+  Route.get('', 'AmplifierController.all');
+  Route.get(':id', 'AmplifierController.get');
+}).prefix('api/amplifier')
+
+Route.group(() => {
+  Route.post('', 'CustomFieldController.create');
+  Route.get('', 'CustomFieldController.all');
+  Route.get(':type', 'CustomFieldController.getByType');
+}).prefix('api/custom-field')
 
 Route.any('/api/graphql', graphqlAdonis({ schema: schema }));
 
