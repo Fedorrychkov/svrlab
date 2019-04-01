@@ -102,16 +102,16 @@ const mutations = {
     state.checkoutStatus = status;
   },
   [REMOVE_FROM_BASKET]: (state, {id}) => {
-    removeFromBasket(id).then(res => {
+    // removeFromBasket(id).then(res => {
 
-    });
+    // });
     const items = state.items.filter(item => item.id !== id);
     state.items = items;
   },
   [SET_CHECKOUT]: (state) => {
-    checkout().then(res => {
-      console.log(res, 'set checkout');
-    })
+    // checkout().then(res => {
+    //   console.log(res, 'set checkout');
+    // })
   }
 };
 

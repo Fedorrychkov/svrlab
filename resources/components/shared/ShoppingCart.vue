@@ -1,19 +1,34 @@
 <template>
-  <aside :class="{'shopping-cart': true, 'open': showBasket}" @click="toggleBasketHide($event)">
+  <aside :class="{'shopping-cart': true, 'open': showBasket}">
     <no-ssr>
-      <font-awesome-icon class="icon" :icon="['fa', 'shopping-cart']" />
+      <font-awesome-icon class="icon" :icon="['fa', 'shopping-cart']" @click="toggleBasketHide($event)"/>
     </no-ssr>
 
-    <div class="shopping-cart__body">
+    <div class="shopping-cart__body" @click="listClick()">
       <ul class="shopping-cart__products">
         <li class="shopping-cart__product" v-for="item in products" :key="item.id">
-          {{item.name}}
+          <div class="shopping-cart__preview">
+            <template v-for="img in item.images">
+              <img class="img" :src="`/${img.path}/${img.large}`" :alt="`Картинка для ${item.name}`" :key="img.id" v-if="item.mainPhoto && item.mainPhoto === img.id" />
+            </template>
+            <img class="img" v-if="!item.mainPhoto" :src="`/${item.images[0].path}/${item.images[0].large}`" :alt="`Картинка для ${item.name}`" />
+          </div>
+          <div class="shopping-cart__meta">
+            <span class="shopping-cart__name">{{item.name}} x{{item.quantity}}</span>
+            <span class="shopping-cart__close" @click="removeProduct(item.id)">
+              <no-ssr>
+                <font-awesome-icon class="icon" :icon="['fa', 'times']"/>
+              </no-ssr>
+            </span>
+          </div>
         </li>
       </ul>
     </div>
   </aside>
 </template>
 <script>
+import { REMOVE_FROM_BASKET } from '@/store/actions/cart.js';
+
 export default {
   data() {
     return {
@@ -21,8 +36,21 @@ export default {
     }
   },
   computed: {
+    basketCount() {
+      return this.$store.getters[`modules/cart/basketCount`];
+    },
     products() {
-      return this.$store.getters[`modules/cart/cartProducts`];
+      const products = this.$store.getters[`modules/cart/cartProducts`];
+      if (products.length > 0) {
+        this.showBasket = true;
+        const timerId = setTimeout(() => {
+          this.showBasket = false;
+        }, 3000);
+      }
+      return products;
+    },
+    total() {
+      return this.$store.getters[`modules/cart/cartTotalPrice`];
     }
   },
   created() {
@@ -42,10 +70,22 @@ export default {
 
       // this.$el.addEventListener('click', close);
 
-      // if (this.products.length > 0) {
-      //   this.showBasket = !this.showBasket;
-      // }
+      if (this.products.length > 0) {
         this.showBasket = !this.showBasket;
+      }
+    },
+    removeProduct(id) {
+      this.$store.dispatch(`modules/cart/${REMOVE_FROM_BASKET}`, {id});
+      if (!this.products.length) {
+        this.$nextTick(() => {
+          this.showBasket = false;
+        });
+      }
+    },
+    listClick() {
+      // this.$nextTick(() => {
+      //   this.showBasket = true;
+      // });
     }
   }
 };
@@ -74,6 +114,38 @@ export default {
 
   .icon {
     cursor: pointer;
+  }
+
+  &__product {
+    display: flex;
+  }
+
+  &__meta {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__name {
+    margin: 0 15px;
+    font-size: 14px;
+  }
+
+  &__preview {
+    min-width: 40px;
+    max-width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
   }
 
   &__body {

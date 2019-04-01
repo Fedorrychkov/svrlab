@@ -15,14 +15,16 @@
         </aside>
         <div class="amplifier-page__right">
           <h3 class="amplifier-page__title">{{amplifier.name}}</h3>
-          <p class="amplifier-page__cost field" v-if="!loading">
-            <span class="key">Цена</span>
-            <span class="value">
-              {{amplifier.cost | numFormat}}
-              <i class="symbol rouble">₽</i>
-            </span>
-          </p>
-          <icon-button text="Добавить в корзину" icon="cart-plus" @click="addProductToBasket()" />
+          <div class="amplifier-page__info">
+            <p class="amplifier-page__cost field" v-if="!loading">
+              <span class="key">Цена</span>
+              <span class="value">
+                {{amplifier.cost | numFormat}}
+                <i class="symbol rouble">₽</i>
+              </span>
+            </p>
+          </div>
+          <icon-button class="amplifier-page__button" text="Добавить в корзину" icon="cart-plus" @click="addProductToBasket()" />
         </div>
       </div>
       <div class="amplifier-page__content">
@@ -49,7 +51,7 @@ export default {
   computed: {
     amplifier() {
       return this.$store.getters[`modules/amplifier/amplifier`];
-    }
+    },
   },
   created() {
     this.id = this.$router.history.current.params.id;
@@ -78,6 +80,10 @@ export default {
     align-items: flex-start;
   }
 
+  &__button, &__info {
+    margin: 15px 0;
+  }
+
   &__left {
     min-width: 550px;
     display: flex;
@@ -93,7 +99,7 @@ export default {
 
   &__right {
     width: 100%;
-    padding-left: 15px;
+    padding-left: 45px;
   }
 
   .field {
@@ -109,7 +115,7 @@ export default {
   }
 
   &__cost {
-    font-size: 24px;
+    font-size: 20px;
 
     i {
       font-style: normal;
@@ -146,6 +152,42 @@ export default {
     background-color: rgba(255, 255, 255, .15);
     overflow: hidden;
     border-radius: 4px;
+  }
+
+  @media (max-width: 992px) {
+    &__container {
+      display: block;
+    }
+
+    &__preview {
+      height: auto;
+      width: 100%;
+    }
+
+    &__left, &__right {
+      width: 100%;
+      min-width: auto;
+    }
+
+    &__right {
+      padding-left: 0;
+    }
+
+    &__left {
+      flex-direction: column-reverse;
+    }
+
+    &__previews {
+      display: flex;
+      margin: 15px -8px;
+      width: 100%;
+
+      .item {
+        margin: 0 8px;
+        height: 80px;
+        width: 80px;
+      }
+    }
   }
 }
 </style>
