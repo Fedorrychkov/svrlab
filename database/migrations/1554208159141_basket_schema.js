@@ -10,9 +10,11 @@ class BasketSchema extends Schema {
       table.timestamps()
       table.integer('product_id')
       table.integer('quantity')
+      table.text('user_token')
+      table.integer('user_id')
       table.float('cost')
       table.float('discount').defaultTo(0)
-      table.integer('status_id')
+      table.integer('order_id')
     })
   }
 
