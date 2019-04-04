@@ -66,7 +66,7 @@ export default {
         this.showBasket = false;
       });
     }
-    this.$store.dispatch(GET_BASKET);
+    this.$store.dispatch(`modules/cart/${GET_BASKET}`);
   },
   methods: {
     goCheckout() {

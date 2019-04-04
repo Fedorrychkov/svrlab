@@ -59,6 +59,11 @@ class OrderStatusSeeder {
         name: 'PROGRESS',
         title: 'Обрабатывается',
       },
+      {
+        id: 8,
+        name: 'CHECKOUT',
+        title: 'Оформлен',
+      },
     ];
     await Promise.all(statuses.map(async (item) => {
       const status = await Factory
