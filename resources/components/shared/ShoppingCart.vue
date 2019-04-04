@@ -28,12 +28,17 @@
   </aside>
 </template>
 <script>
-import { REMOVE_FROM_BASKET } from '@/store/actions/cart.js';
+import {
+  REMOVE_FROM_BASKET,
+  GET_BASKET
+} from '@/store/actions/cart.js';
+import { clearTimeout } from 'timers';
 
 export default {
   data() {
     return {
-      showBasket: false
+      showBasket: false,
+      timerId: null
     }
   },
   computed: {
@@ -55,11 +60,13 @@ export default {
     }
   },
   created() {
-    // this.$el.addEventListener('scroll', () => {
-    //   this.showBasket = false;
-    // });
 
-    // this.$store.dispatch(GET_BASKET);
+    if (process.client) {
+      document.addEventListener('scroll', () => {
+        this.showBasket = false;
+      });
+    }
+    this.$store.dispatch(GET_BASKET);
   },
   methods: {
     goCheckout() {
@@ -76,6 +83,9 @@ export default {
 
       if (this.products.length > 0) {
         this.showBasket = !this.showBasket;
+        this.timerId = setTimeout(() => {
+          this.showBasket = false;
+        }, 10000);
       }
     },
     removeProduct(id) {
@@ -110,9 +120,18 @@ export default {
     border-radius: 2px 2px 0 0;
 
     .shopping-cart__body {
-      z-index: 1;
+      z-index: 3;
       opacity: 1;
       transform: translate3d(0, 0, 0);
+    }
+  }
+
+  &__close {
+    opacity: .6;
+    transition: all .15s ease-in-out;
+
+    &:hover {
+      opacity: 1;
     }
   }
 
