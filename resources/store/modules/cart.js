@@ -10,6 +10,7 @@ import {
   SET_CHECKOUT_STATUS,
   SET_CHECKOUT
 } from '../actions/cart';
+import axios from 'axios';
 
 const state = () => ({
   items: [],
