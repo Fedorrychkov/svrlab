@@ -86,6 +86,7 @@ export default {
 
   &__left {
     min-width: 550px;
+    max-width: 550px;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -124,6 +125,7 @@ export default {
 
   &__previews {
     width: 80px;
+    min-width: 80px;
     height: auto;
     margin: -15px 0;
     margin-right: 15px;
@@ -186,6 +188,10 @@ export default {
         margin: 0 8px;
         height: 80px;
         width: 80px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(255, 255, 255, .15);
       }
     }
   }
