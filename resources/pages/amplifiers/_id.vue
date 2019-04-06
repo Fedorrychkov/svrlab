@@ -169,6 +169,7 @@ export default {
     &__left, &__right {
       width: 100%;
       min-width: auto;
+      max-width: 100%;
     }
 
     &__right {
@@ -192,6 +193,12 @@ export default {
         justify-content: center;
         align-items: center;
         background-color: rgba(255, 255, 255, .15);
+
+        &:hover {
+          img {
+            transform: none;
+          }
+        }
       }
     }
   }

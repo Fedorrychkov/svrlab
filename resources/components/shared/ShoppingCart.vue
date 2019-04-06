@@ -60,7 +60,6 @@ export default {
     }
   },
   created() {
-
     if (process.client) {
       document.addEventListener('scroll', () => {
         this.showBasket = false;
@@ -76,10 +75,14 @@ export default {
       e.stopImmediatePropagation()
       const close = () => {
         this.showBasket = false;
-        // this.$el.removeEventListener('click', close);
+        if (process.client) {
+          document.removeEventListener('click', close);
+        }
       };
 
-      // this.$el.addEventListener('click', close);
+      if (process.client) {
+        document.removeEventListener('click', close);
+      }
 
       if (this.products.length > 0) {
         this.showBasket = !this.showBasket;
