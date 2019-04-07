@@ -1,7 +1,10 @@
 <template>
   <aside :class="{'shopping-cart': true, 'open': showBasket}">
     <no-ssr>
-      <font-awesome-icon class="icon" :icon="['fa', 'shopping-cart']" @click="toggleBasketHide($event)"/>
+      <div class="shopping-cart__icon" @click="toggleBasketHide($event)">
+        <font-awesome-icon class="icon" :icon="['fa', 'shopping-cart']"/>
+        <span class="count">{{basketCount}}</span>
+      </div>
     </no-ssr>
 
     <div class="shopping-cart__body" @click="listClick()">
@@ -23,6 +26,10 @@
           </div>
         </li>
       </ul>
+      <div class="shopping-cart__cost field">
+        <span class="key">Итого</span>
+        <span class="value">{{total || 0}} <i class="symbol rouble"> ₽</i> </span>
+      </div>
       <nuxt-link to="/cart/checkout" class="checkout-button" @click="goCheckout()" v-if="this.products.length > 0">Оформить заказ</nuxt-link>
     </div>
   </aside>
@@ -86,9 +93,9 @@ export default {
 
       if (this.products.length > 0) {
         this.showBasket = !this.showBasket;
-        this.timerId = setTimeout(() => {
-          this.showBasket = false;
-        }, 10000);
+        // this.timerId = setTimeout(() => {
+          // this.showBasket = false;
+        // }, 10000);
       }
     },
     removeProduct(id) {
@@ -129,12 +136,58 @@ export default {
     }
   }
 
+  &__icon {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    cursor: pointer;
+
+    .count {
+      width: 20px;
+      height: 20px;
+      font-size: 14px;
+      background-color: var(--second-color);
+      display: block;
+      color: var(--primary-color);
+      margin-left: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      font-weight: 500;
+    }
+  }
+
   &__close {
     opacity: .6;
     transition: all .15s ease-in-out;
 
     &:hover {
       opacity: 1;
+    }
+  }
+
+  &__cost {
+    font-weight: 500;
+    font-size: 18px;
+    margin: 24px 0 0;
+    padding: 0 0 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, .3);
+  }
+
+  .field {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    .value, i {
+      white-space: nowrap;
+      font-style: normal;
+    }
+
+    .key {
+      padding-right: 10px;
     }
   }
 
