@@ -7,10 +7,7 @@
             <li class="item" v-for="img in amplifier.images" :key="img.id"><img :src="`/${img.path}/${img.large}`" :alt="amplifier.name"></li>
           </ul>
           <div class="amplifier-page__preview">
-            <template v-for="img in amplifier.images">
-              <img :src="`/${img.path}/${img.large}`" :alt="`Картинка для ${img.name}`" :key="img.id" v-if="amplifier.mainPhoto && amplifier.mainPhoto === img.id" />
-            </template>
-            <img v-if="!loading && !amplifier.mainPhoto" :src="`/${amplifier.images[0].path}/${amplifier.images[0].large}`" :alt="`Картинка для ${amplifier.name}`" />
+            <preview-photo :item="amplifier" style="height: auto" />
           </div>
         </aside>
         <div class="amplifier-page__right">
@@ -37,6 +34,7 @@
 import { GET_AMPLIFIER } from '@/store/actions/amplifier.js';
 import { ADD_TO_BASKET } from '@/store/actions/cart.js';
 import IconButton from '@/components/shared/ui/IconButton';
+import PreviewPhoto from '@/components/shared/ui/PreviewPhoto';
 
 export default {
   data() {
@@ -46,7 +44,8 @@ export default {
     }
   },
   components: {
-    IconButton
+    IconButton,
+    PreviewPhoto
   },
   computed: {
     amplifier() {
