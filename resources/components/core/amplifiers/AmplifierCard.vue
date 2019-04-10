@@ -3,10 +3,7 @@
     <div class="amplifier-card__container">
       <div class="amplifier-card__meta item">
         <nuxt-link class="amplifier-card__preview" v-if="item.images.length > 0" :to="`/amplifiers/${item.id}`">
-          <template v-for="img in item.images" >
-            <img :src="`/${img.path}/${img.large}`" :alt="`Картинка для ${item.name}`" :key="img.id" v-if="item.mainPhoto && item.mainPhoto === img.id" />
-          </template>
-          <img :src="`/${item.images[0].path}/${item.images[0].large}`" :alt="`Картинка для ${item.name}`" v-if="!item.mainPhoto" />
+          <preview-photo :item="item" />
         </nuxt-link>
         <div class="amplifier-card__info">
           <h4 class="amplifier-card__title"><nuxt-link :to="`/amplifiers/${item.id}`">{{item.name}}</nuxt-link></h4>
@@ -17,8 +14,13 @@
   </article>
 </template>
 <script>
+import PreviewPhoto from '@/components/shared/ui/PreviewPhoto';
+
 export default {
   props: ['item'],
+  components: {
+    PreviewPhoto
+  }
 }
 </script>
 <style lang="scss">
