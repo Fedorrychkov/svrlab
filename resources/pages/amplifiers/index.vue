@@ -17,7 +17,6 @@
 import { GET_AMPLIFIERS } from '@/store/actions/amplifier.js';
 import AmplifierCard from '@/components/core/amplifiers/AmplifierCard';
 import PageSection from '@/components/shared/PageSection';
-import gql from 'graphql-tag';
 
 export default {
   head() {
