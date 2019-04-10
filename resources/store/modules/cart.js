@@ -82,7 +82,7 @@ const mutations = {
   },
   [INCREMENT_PRODUCT]: (state, {id}) => {
     const cartItem = state.items.find(item => item.id === id);
-    cartItem.quantity++;
+    cartItem && cartItem.quantity++;
 /*    quantity({id: cartItem.id, quantity: cartItem.quantity}).then(res => {
 
     });*/
@@ -92,8 +92,9 @@ const mutations = {
   },
   [DECREMENT_PRODUCT]: (state, {id}) => {
     const cartItem = state.items.find(item => item.id === id);
-    if (cartItem.quantity > 1) {
+    if (cartItem && cartItem.quantity > 1) {
       cartItem.quantity--;
+
       // quantity({id: cartItem.id, quantity: cartItem.quantity}).then(res => {
       //    console.log(res, 'from quantity decrement');
       // });
