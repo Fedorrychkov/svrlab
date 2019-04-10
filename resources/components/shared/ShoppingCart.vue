@@ -11,10 +11,7 @@
       <ul class="shopping-cart__products">
         <li class="shopping-cart__product" v-for="item in products" :key="item.id">
           <div class="shopping-cart__preview">
-            <template v-for="img in item.images">
-              <img class="img" :src="`/${img.path}/${img.large}`" :alt="`Картинка для ${item.name}`" :key="img.id" v-if="item.mainPhoto && item.mainPhoto === img.id" />
-            </template>
-            <img class="img" v-if="!item.mainPhoto" :src="`/${item.images[0].path}/${item.images[0].large}`" :alt="`Картинка для ${item.name}`" />
+            <preview-photo :item="item" />
           </div>
           <div class="shopping-cart__meta">
             <span class="shopping-cart__name">{{item.name}} x{{item.quantity}}</span>
@@ -28,9 +25,11 @@
       </ul>
       <div class="shopping-cart__cost field">
         <span class="key">Итого</span>
-        <span class="value">{{total || 0}} <i class="symbol rouble"> ₽</i> </span>
+        <span class="value">{{total || 0 | numFormat}} <i class="symbol rouble"> ₽</i> </span>
       </div>
-      <nuxt-link to="/cart/checkout" class="checkout-button" @click="goCheckout()" v-if="this.products.length > 0">Оформить заказ</nuxt-link>
+      <div @click="showBasket = false">
+        <nuxt-link to="/cart/checkout" class="checkout-button" v-if="this.products.length > 0">Оформить заказ</nuxt-link>
+      </div>
     </div>
   </aside>
 </template>
@@ -39,7 +38,7 @@ import {
   REMOVE_FROM_BASKET,
   GET_BASKET
 } from '@/store/actions/cart.js';
-import { clearTimeout } from 'timers';
+import PreviewPhoto from '@/components/shared/ui/PreviewPhoto';
 
 export default {
   data() {
@@ -47,6 +46,9 @@ export default {
       showBasket: false,
       timerId: null
     }
+  },
+  components: {
+    PreviewPhoto
   },
   computed: {
     basketCount() {
@@ -75,9 +77,6 @@ export default {
     this.$store.dispatch(`modules/cart/${GET_BASKET}`);
   },
   methods: {
-    goCheckout() {
-      console.log('checkout');
-    },
     toggleBasketHide(e) {
       e.stopImmediatePropagation()
       const close = () => {
@@ -243,7 +242,7 @@ export default {
     justify-content: center;
     align-items: center;
 
-    .img {
+    .img, img {
       width: 100%;
       height: 100%;
       display: block;
