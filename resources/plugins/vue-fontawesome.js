@@ -15,6 +15,7 @@ import {
   faHome,
   faShoppingCart,
   faCartPlus,
+  faTrashAlt,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -29,6 +30,7 @@ library.add(
   faHome,
   faShoppingCart,
   faCartPlus,
+  faTrashAlt,
 );
 
 Vue.component(FontAwesomeIcon.name, FontAwesomeIcon);
