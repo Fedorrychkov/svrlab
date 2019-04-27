@@ -1,5 +1,5 @@
 <template>
-  <article class="shopping-item">
+  <article :class="{'shopping-item': true, 'has-error': item.quantity > item.inventory}">
     <div class="shopping-item__preview">
       <preview-photo :item="item" />
     </div>
@@ -22,6 +22,9 @@
           </span>
         </div>
       </div>
+    </div>
+    <div class="shopping-item__error" v-if="item.quantity > item.inventory">
+      Количество товара в заказе превышает имеющийся на складе. Данный товар будет специально изготовлен для Вас.
     </div>
   </article>
 </template>
@@ -46,8 +49,9 @@ export default {
 <style lang="scss">
 .shopping-item {
   width: 100%;
-  border: 1px solid var(--second-color);
-  margin: 40px 0;
+  border: 1px solid var(--primary-color);
+  background-color: var(--primary-color);
+  margin: 20px 0;
   color: var(--second-color);
   border-radius: 2px;
   overflow: hidden;
@@ -93,9 +97,20 @@ export default {
     }
   }
 
+  &.has-error {
+    flex-wrap: wrap;
+  }
+
+  &__error {
+    width: 100%;
+    padding: 6px;
+    border-top: 1px solid rgba(255, 255, 255, .05);
+    background-color: var(--info-color);
+  }
+
   &__info {
     padding: 8px;
-    width: 100%;
+    width: calc(100% - 120px);
     display: flex;
     justify-content: flex-start;
     align-items: center;
