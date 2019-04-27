@@ -1,6 +1,6 @@
 <template>
   <div class="counter">
-    <span class="counter__item" @click="decrement()">-</span>
+    <span class="counter__item" :style="`opacity: ${item.quantity <= 1 ? 0.5 : 1}`" @click="decrement()">-</span>
     <span class="counter__item value">{{item.quantity}}</span>
     <span class="counter__item" @click="increment()">+</span>
   </div>
