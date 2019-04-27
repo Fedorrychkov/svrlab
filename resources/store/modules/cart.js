@@ -15,11 +15,20 @@ import axios from 'axios';
 const state = () => ({
   items: [],
   checkoutStatus: null,
+  nullableInventory: false
 });
 
 const getters = {
   cartProducts: (state, getters, rootState) => {
     return state.items;
+  },
+  cartInventoryNull: (state, getters, rootState) => {
+    state.items.forEach(item => {
+      if (!item.inventory) {
+        state.nullableInventory = true;
+      }
+    });
+    return state.nullableInventory;
   },
   cartTotalPrice: (state, getters) => {
     return getters.cartProducts.reduce((total, product) => {
