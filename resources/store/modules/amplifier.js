@@ -45,6 +45,7 @@ const actions = {
     const images = data.images.map(item => {
       return item.id;
     });
+    data.imageIDs = images;
     data.images = JSON.stringify(images);
     commit(AMPLIFIER_LOADING, true);
     commit(AMPLIFIER_ERROR, false);
@@ -62,6 +63,7 @@ const actions = {
     const images = data.images.map(item => {
       return item.id;
     });
+    data.imageIDs = images;
     data.images = JSON.stringify(images);
     commit(AMPLIFIER_LOADING, true);
     commit(AMPLIFIER_ERROR, false);
