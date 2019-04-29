@@ -7,9 +7,8 @@ class ImagesSchema extends Schema {
   up () {
     this.table('images', (table) => {
       // alter table
-      table.integer('amplifier_id').defaultTo(null)
+      table.integer('product_id').defaultTo(null)
       table.integer('user_id').defaultTo(null)
-      table.integer('music_id').defaultTo(null)
     })
   }
 

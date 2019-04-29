@@ -1,5 +1,5 @@
 const { makeExecutableSchema } = require('graphql-tools');
-const Amplifier = use('App/Models/Amplifier');
+const Amplifier = use('App/Models/Product');
 
 const typeAmplifier = `
   type Amplifier {

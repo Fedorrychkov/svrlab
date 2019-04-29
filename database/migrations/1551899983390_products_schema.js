@@ -3,9 +3,9 @@
 /** @type {import('@adonisjs/lucid/src/Schema')} */
 const Schema = use('Schema')
 
-class AmplifiersSchema extends Schema {
+class ProductsSchema extends Schema {
   up () {
-    this.table('amplifiers', (table) => {
+    this.table('products', (table) => {
       // alter table
       table.integer('inventory').notNullable().defaultTo(0)
       table.boolean('isAvailable').notNullable().defaultTo(true)
@@ -13,10 +13,10 @@ class AmplifiersSchema extends Schema {
   }
 
   down () {
-    this.table('amplifiers', (table) => {
+    this.table('products', (table) => {
       // reverse alternations
     })
   }
 }
 
-module.exports = AmplifiersSchema
+module.exports = ProductsSchema

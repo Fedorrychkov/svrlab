@@ -3,7 +3,7 @@
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Model = use('Model')
 
-class Amplifier extends Model {
+class Product extends Model {
   mainPhoto() {
     return this.hasOne('App/Models/Image')
   }
@@ -13,4 +13,4 @@ class Amplifier extends Model {
   }
 }
 
-module.exports = Amplifier
+module.exports = Product
