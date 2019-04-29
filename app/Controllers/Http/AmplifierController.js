@@ -13,7 +13,8 @@ class AmplifierController {
       customFields,
       short,
       name,
-    } = request.only(['name', 'short', 'customFields', 'mainPhoto', 'images', 'cost', 'inventory', 'isAvailable']);
+      imageIDs
+    } = request.only(['name', 'short', 'customFields', 'mainPhoto', 'images', 'cost', 'inventory', 'isAvailable', 'imageIDs']);
     try {
       const amplifier = new Amplifier();
       amplifier.name = name;
@@ -30,6 +31,14 @@ class AmplifierController {
         const image = await Image.find(mainPhoto);
         image.amplifier_id = amplifier.id;
         image.save()
+      }
+
+      if (imageIDs.length) {
+        await Promise.all(imageIDs.map(async imgId => {
+          const image = await Image.find(imgId);
+          image.amplifier_id = amplifier.id;
+          image.save();
+        }));
       }
 
       response.ok(amplifier);
@@ -86,7 +95,7 @@ class AmplifierController {
 
       await Promise.all(JSON.parse(item.images).map(async imgId => {
         const image = await Image.find(imgId);
-        images.push(image);
+        image && images.push(image);
       }));
       item.images = images;
       list.push(item);
@@ -103,7 +112,7 @@ class AmplifierController {
 
     await Promise.all(JSON.parse(amplifier.images).map(async imgId => {
       const image = await Image.find(imgId);
-      images.push(image);
+      image && images.push(image);
     }));
     amplifier.images = images;
     return amplifier;

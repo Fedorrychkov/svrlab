@@ -2,10 +2,10 @@
   <aside class="image-list">
     <h4 class="image-list__title">Изображения товара</h4>
     <div class="image-list__item" v-for="item in items" :key="item.id">
-      <div :class="{'image-item': true, 'main': mainPhoto === item.id}">
-        <img :src="`/uploads/${item.large}`" alt="">
+      <div v-if="item" :class="{'image-item': true, 'main': mainPhoto === item.id}">
+        <img :src="`/${item.path}/${item.large}`" alt="">
       </div>
-      <div class="placeholder">
+      <div v-if="item" class="placeholder">
         <font-awesome-icon class="icon" :icon="['fa', 'home']" @click="main(item.id)" />
         <font-awesome-icon class="icon" :icon="['fa', 'times']"  @click="deletePhoto(item.id)"/>
       </div>
