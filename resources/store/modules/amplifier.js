@@ -46,6 +46,7 @@ const actions = {
       return item.id;
     });
     data.imageIDs = images;
+    data.type = 'AMPLIFIER';
     data.images = JSON.stringify(images);
     commit(AMPLIFIER_LOADING, true);
     commit(AMPLIFIER_ERROR, false);
@@ -64,6 +65,7 @@ const actions = {
       return item.id;
     });
     data.imageIDs = images;
+    data.type = 'AMPLIFIER';
     data.images = JSON.stringify(images);
     commit(AMPLIFIER_LOADING, true);
     commit(AMPLIFIER_ERROR, false);
