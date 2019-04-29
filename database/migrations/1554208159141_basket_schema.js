@@ -9,9 +9,10 @@ class BasketSchema extends Schema {
       table.increments()
       table.timestamps()
       table.integer('product_id')
+      table.string('product_type') // AMPLIFIER, MUSIC
       table.integer('quantity')
-      table.text('user_token')
-      table.integer('user_id')
+      table.integer('user_id') // If user is auth
+      table.integer('customer_id') // If anonymus user
       table.float('cost')
       table.float('discount').defaultTo(0)
       table.integer('order_id')
