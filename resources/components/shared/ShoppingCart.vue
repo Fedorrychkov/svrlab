@@ -1,37 +1,35 @@
 <template>
-  <aside :class="{'shopping-cart': true, 'open': showBasket}">
-    <no-ssr>
+  <no-ssr>
+    <aside :class="{'shopping-cart': true, 'open': showBasket}">
       <div class="shopping-cart__icon" @click="toggleBasketHide($event)">
         <font-awesome-icon class="icon" :icon="['fa', 'shopping-cart']"/>
         <span class="count">{{basketCount}}</span>
       </div>
-    </no-ssr>
 
-    <div class="shopping-cart__body" @click="listClick()">
-      <ul class="shopping-cart__products">
-        <li class="shopping-cart__product" v-for="item in products" :key="item.id">
-          <div class="shopping-cart__preview">
-            <preview-photo :item="item" />
-          </div>
-          <div class="shopping-cart__meta">
-            <span class="shopping-cart__name">{{item.name}} x{{item.quantity}}</span>
-            <span class="shopping-cart__close" @click="removeProduct(item.id)">
-              <no-ssr>
+      <div class="shopping-cart__body" @click="listClick()">
+        <ul class="shopping-cart__products">
+          <li class="shopping-cart__product" v-for="item in products" :key="item.id">
+            <div class="shopping-cart__preview">
+              <preview-photo :item="item" />
+            </div>
+            <div class="shopping-cart__meta">
+              <span class="shopping-cart__name">{{item.name}} x{{item.quantity}}</span>
+              <span class="shopping-cart__close" @click="removeProduct(item.id)">
                 <font-awesome-icon class="icon" :icon="['fa', 'times']"/>
-              </no-ssr>
-            </span>
-          </div>
-        </li>
-      </ul>
-      <div class="shopping-cart__cost field">
-        <span class="key">Итого</span>
-        <span class="value">{{total || 0 | numFormat}} <i class="symbol rouble"> ₽</i> </span>
+              </span>
+            </div>
+          </li>
+        </ul>
+        <div class="shopping-cart__cost field">
+          <span class="key">Итого</span>
+          <span class="value">{{total || 0 | numFormat}} <i class="symbol rouble"> ₽</i> </span>
+        </div>
+        <div @click="showBasket = false">
+          <nuxt-link to="/cart/checkout" class="checkout-button" v-if="this.products.length > 0">Оформить заказ</nuxt-link>
+        </div>
       </div>
-      <div @click="showBasket = false">
-        <nuxt-link to="/cart/checkout" class="checkout-button" v-if="this.products.length > 0">Оформить заказ</nuxt-link>
-      </div>
-    </div>
-  </aside>
+    </aside>
+  </no-ssr>
 </template>
 <script>
 import {

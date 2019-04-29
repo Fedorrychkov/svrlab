@@ -9,7 +9,9 @@
           <h4 class="title">{{products.length > 0 ? 'Оформление заказа' : 'Корзина пуста'}}</h4>
         </template>
         <template slot="content">
-          <amplifier-shopping-item v-for="item in products" :key="item.id" :item="item" @submit.prevent="create" />
+          <no-ssr>
+            <amplifier-shopping-item v-for="item in products" :key="item.id" :item="item" @submit.prevent="create" />
+          </no-ssr>
           <div class="checkout__content">
             <v-layout wrap justify-space-between>
               <v-flex xs12 md7>
@@ -127,7 +129,7 @@
 <script>
 import PageSection from '@/components/shared/PageSection';
 import AmplifierShoppingItem from '@/components/core/amplifiers/AmplifierShoppingItem';
-
+import { GET_BASKET } from '@/store/actions/cart.js';
 export default {
   data() {
     return {
@@ -197,6 +199,7 @@ export default {
   created() {
     this.nullInventory = this.nullableInventory;
     this.checkout.country.value = 'Россия';
+    this.$store.dispatch(`modules/cart/${GET_BASKET}`);
   },
   methods: {
     create() {
