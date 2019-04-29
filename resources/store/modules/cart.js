@@ -6,125 +6,140 @@ import {
   PUSH_PRODUCT_TO_BASKET,
   INCREMENT_PRODUCT,
   DECREMENT_PRODUCT,
-  DECREMENT_PRODUCT_INVENTORY,
   SET_CHECKOUT_STATUS,
   SET_CHECKOUT
-} from '../actions/cart';
-import axios from 'axios';
+} from '../actions/cart'
 
 const state = () => ({
   items: [],
   checkoutStatus: null,
   nullableInventory: false
-});
+})
 
 const getters = {
   cartProducts: (state, getters, rootState) => {
-    return state.items;
+    return state.items
   },
-  cartInventoryNull: (state, getters, rootState) => {
-    state.items.forEach(item => {
-      if (!item.inventory) {
-        state.nullableInventory = true;
-      }
-    });
-    return state.nullableInventory;
+  cartInventoryNull: (state) => {
+    return state.nullableInventory
   },
   cartTotalPrice: (state, getters) => {
     return getters.cartProducts.reduce((total, product) => {
-      return total + product.cost * product.quantity;
+      return total + product.cost * product.quantity
     }, 0);
   },
   basketCount: (state, getters) => {
     return getters.cartProducts.reduce((count, product) => {
-      return count + product.quantity;
+      return count + product.quantity
     }, 0);
   }
 };
 
 const actions = {
   [ADD_TO_BASKET]: ({state, commit}, product) => {
-    commit(SET_CHECKOUT_STATUS, null);
+    commit(SET_CHECKOUT_STATUS, null)
     // if (product.inventory > 0) {
     if (product) {
       const cartItem = state.items.find(item => item.id === product.id);
-      if(!cartItem) {
+      if (!cartItem) {
         commit(PUSH_PRODUCT_TO_BASKET, product);
       } else {
         commit(INCREMENT_PRODUCT, {id: cartItem.id});
       }
+      commit('SET')
     }
   },
-  [GET_BASKET]: ({state, commit}) => {
-    // getBasket().then( res => {
-    //   if (res.data.products.length > 0) {
-    //     commit(SET_BASKET, res.data.products);
-    //   }
-    // });
+  [GET_BASKET]: ({dispatch, state, commit, rootState}) => {
+    if (!rootState.modules.amplifier.amplifiers.length) {
+      dispatch('modules/amplifier/GET_AMPLIFIERS', null, {root: true}).then(res => {
+        commit('GET', res.data)
+      })
+    } else {
+      commit('GET')
+    }
   },
   [REMOVE_FROM_BASKET]: ({state, commit}, {id}) => {
-    commit(REMOVE_FROM_BASKET, {id});
+    commit(REMOVE_FROM_BASKET, {id})
+    commit('SET')
   },
   [DECREMENT_PRODUCT]: ({state, commit}, {id}) => {
-    commit(DECREMENT_PRODUCT, {id});
+    commit(DECREMENT_PRODUCT, {id})
+    commit('SET')
   },
   [INCREMENT_PRODUCT]: ({state, commit}, {id}) => {
-    commit(INCREMENT_PRODUCT, {id});
+    commit(INCREMENT_PRODUCT, {id})
+    commit('SET')
   },
   [SET_CHECKOUT]: ({state, commit}) => {
-    commit(SET_CHECKOUT);
+    commit(SET_CHECKOUT)
   }
-};
+}
 
 const mutations = {
   [PUSH_PRODUCT_TO_BASKET]: (state, product) => {
-    // pushToBasket(product.id).then(res => {
-
-    // });
     state.items.push({
       ...product,
       quantity: 1
-    });
+    })
   },
   [SET_BASKET]: (state, products) => {
-    state.items = products;
+    state.items = products
   },
   [INCREMENT_PRODUCT]: (state, {id}) => {
     const cartItem = state.items.find(item => item.id === id);
-    cartItem && cartItem.quantity++;
-/*    quantity({id: cartItem.id, quantity: cartItem.quantity}).then(res => {
-
-    });*/
-    // pushToBasket(cartItem.id).then(res => {
-
-    // });
+    cartItem && cartItem.quantity++
   },
   [DECREMENT_PRODUCT]: (state, {id}) => {
     const cartItem = state.items.find(item => item.id === id);
     if (cartItem && cartItem.quantity > 1) {
-      cartItem.quantity--;
-
-      // quantity({id: cartItem.id, quantity: cartItem.quantity}).then(res => {
-      //    console.log(res, 'from quantity decrement');
-      // });
+      cartItem.quantity--
     }
   },
   [SET_CHECKOUT_STATUS]: (state, status) => {
-    state.checkoutStatus = status;
+    state.checkoutStatus = status
   },
   [REMOVE_FROM_BASKET]: (state, {id}) => {
-    // removeFromBasket(id).then(res => {
-
-    // });
     const items = state.items.filter(item => item.id !== id);
-    state.items = items;
+    state.items = items
   },
   [SET_CHECKOUT]: (state) => {
-    // checkout().then(res => {
-    //   console.log(res, 'set checkout');
-    // })
+  },
+  [GET_BASKET]: (state, items) => {
+    state.items = items
+  },
+  'SET': (state) => {
+    if (process.browser) {
+      localStorage.setItem('svrlab.basket', JSON.stringify(state.items))
+      state.items.forEach(item => {
+        if (!item.inventory) {
+          state.nullableInventory = true
+        }
+      })
+    }
+  },
+  'GET': (state, amplifiers) => {
+    if (process.browser) {
+      let items = JSON.parse(localStorage.getItem('svrlab.basket'))
+      if (amplifiers) {
+        const filtered = items.map((item) => {
+          const amplifier = amplifiers.find(amp => amp.id === item.id)
+          if (amplifier) {
+            if (!amplifier.inventory) {
+              state.nullableInventory = true
+            }
+            amplifier.quantity = item.quantity
+            item = amplifier
+          }
+          return item
+        })
+        items = filtered
+        localStorage.setItem('svrlab.basket', JSON.stringify(items))
+      }
+
+      state.items = items || []
+    }
   }
-};
+}
 
 export default {
   state,
