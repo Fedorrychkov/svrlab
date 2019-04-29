@@ -52,7 +52,7 @@ const actions = {
   [GET_BASKET]: ({dispatch, state, commit, rootState}) => {
     if (!rootState.modules.amplifier.amplifiers.length) {
       dispatch('modules/amplifier/GET_AMPLIFIERS', null, {root: true}).then(res => {
-        commit('GET', res.data)
+        commit('GET', rootState.modules.amplifier.amplifiers)
       })
     } else {
       commit('GET')
@@ -86,11 +86,11 @@ const mutations = {
     state.items = products
   },
   [INCREMENT_PRODUCT]: (state, {id}) => {
-    const cartItem = state.items.find(item => item.id === id);
+    const cartItem = state.items.find(item => item.id === id)
     cartItem && cartItem.quantity++
   },
   [DECREMENT_PRODUCT]: (state, {id}) => {
-    const cartItem = state.items.find(item => item.id === id);
+    const cartItem = state.items.find(item => item.id === id)
     if (cartItem && cartItem.quantity > 1) {
       cartItem.quantity--
     }
@@ -99,7 +99,7 @@ const mutations = {
     state.checkoutStatus = status
   },
   [REMOVE_FROM_BASKET]: (state, {id}) => {
-    const items = state.items.filter(item => item.id !== id);
+    const items = state.items.filter(item => item.id !== id)
     state.items = items
   },
   [SET_CHECKOUT]: (state) => {
@@ -110,16 +110,11 @@ const mutations = {
   'SET': (state) => {
     if (process.browser) {
       localStorage.setItem('svrlab.basket', JSON.stringify(state.items))
-      state.items.forEach(item => {
-        if (!item.inventory) {
-          state.nullableInventory = true
-        }
-      })
     }
   },
   'GET': (state, amplifiers) => {
     if (process.browser) {
-      let items = JSON.parse(localStorage.getItem('svrlab.basket'))
+      let items = JSON.parse(localStorage.getItem('svrlab.basket')) || []
       if (amplifiers) {
         const filtered = items.map((item) => {
           const amplifier = amplifiers.find(amp => amp.id === item.id)
@@ -135,8 +130,7 @@ const mutations = {
         items = filtered
         localStorage.setItem('svrlab.basket', JSON.stringify(items))
       }
-
-      state.items = items || []
+      state.items = JSON.parse(localStorage.getItem('svrlab.basket')) || []
     }
   }
 }
