@@ -1,10 +1,7 @@
 import {
-  DELETE_IMAGE,
-  GET_IMAGE,
-  ADD_IMAGE
-} from "../actions/images";
-import gql from 'graphql-tag';
-import axios from 'axios';
+  DELETE_IMAGE
+} from '../actions/images'
+import axios from 'axios'
 
 const state = () => ({
 });
@@ -24,7 +21,7 @@ const actions = {
           reject(err);
         });
     });
-  }
+  },
 };
 
 const mutations = {
