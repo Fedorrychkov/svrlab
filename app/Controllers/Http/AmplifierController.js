@@ -1,6 +1,7 @@
 'use strict'
 const Product = use('App/Models/Product')
 const Image = use('App/Models/Image')
+const Database = use('Database')
 
 class AmplifierController {
   async create ({request, response}) {
@@ -88,8 +89,10 @@ class AmplifierController {
   }
 
   async all ({response}) {
-    let amplifiers = await Product.all()
-    amplifiers = amplifiers.toJSON()
+    let amplifiers = await Database
+        .from('products')
+        .where({type: 'AMPLIFIER'})
+        .orderBy('updated_at', 'desc')
 
     let list = []
 
