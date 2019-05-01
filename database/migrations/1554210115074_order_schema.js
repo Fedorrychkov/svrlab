@@ -8,8 +8,18 @@ class OrderSchema extends Schema {
     this.create('orders', (table) => {
       table.increments()
       table.timestamps()
-      table.integer('user_id')
+      table.integer('customer_id')
       table.integer('status_id')
+
+      table.string('name', 254)
+      table.string('country', 254)
+      table.string('zip', 254)
+      table.string('city', 254)
+      table.string('address', 254)
+      table.float('total').defaultTo(0)
+      table.float('discount').defaultTo(0)
+      table.float('deliver').defaultTo(0)
+      table.text('short')
     })
   }
 
