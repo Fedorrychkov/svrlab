@@ -12,8 +12,11 @@ class CustomerSchema extends Schema {
       table.string('email', 254).notNullable().unique()
       table.string('phone', 20).notNullable().unique()
 
-      table.string('first_name', 80)
-      table.string('last_name', 80)
+      table.string('name', 254)
+      table.string('country', 254)
+      table.string('zip', 254)
+      table.string('city', 254)
+      table.string('address', 254)
     })
   }
 
