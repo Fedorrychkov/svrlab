@@ -129,7 +129,7 @@
 <script>
 import PageSection from '@/components/shared/PageSection';
 import AmplifierShoppingItem from '@/components/core/amplifiers/AmplifierShoppingItem';
-import { GET_BASKET } from '@/store/actions/cart.js';
+import { GET_BASKET, SET_CHECKOUT } from '@/store/actions/cart.js';
 export default {
   data() {
     return {
@@ -206,6 +206,22 @@ export default {
       const valid = this.$refs.form.validate();
       if (!valid) return;
       this.valid = false;
+      const payload = {
+        name: this.checkout.name.value,
+        country: this.checkout.country.value,
+        zip: this.checkout.zip.value,
+        city: this.checkout.city.value,
+        address: this.checkout.address.value,
+        phone: this.checkout.phone.value,
+        email: this.checkout.email.value,
+        short: this.checkout.short.value,
+        deliver: 0,
+        total: this.total,
+        discount: 0,
+        basket: this.products
+      };
+      console.log(payload);
+      this.$store.dispatch(`modules/cart/${SET_CHECKOUT}`, payload).then(res => console.log(res));
       // const status = this.edit ? UPDATE_AMPLIFIER : ADD_AMPLIFIER;
       // this.$store.dispatch(`modules/amplifier/${status}`, product)
       //   .then(res => {

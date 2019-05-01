@@ -33,6 +33,10 @@ Route.group(() => {
 }).prefix('api/amplifier')
 
 Route.group(() => {
+  Route.post('', 'OrderController.create')
+}).prefix('api/order')
+
+Route.group(() => {
   Route.post('', 'CustomFieldController.create')
   Route.get('', 'CustomFieldController.all')
   Route.get(':type', 'CustomFieldController.getByType')

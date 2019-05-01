@@ -9,6 +9,7 @@ import {
   SET_CHECKOUT_STATUS,
   SET_CHECKOUT
 } from '../actions/cart'
+import axios from 'axios'
 
 const state = () => ({
   items: [],
@@ -26,25 +27,25 @@ const getters = {
   cartTotalPrice: (state, getters) => {
     return getters.cartProducts.reduce((total, product) => {
       return total + product.cost * product.quantity
-    }, 0);
+    }, 0)
   },
   basketCount: (state, getters) => {
     return getters.cartProducts.reduce((count, product) => {
       return count + product.quantity
-    }, 0);
+    }, 0)
   }
-};
+}
 
 const actions = {
   [ADD_TO_BASKET]: ({state, commit}, product) => {
     commit(SET_CHECKOUT_STATUS, null)
     // if (product.inventory > 0) {
     if (product) {
-      const cartItem = state.items.find(item => item.id === product.id);
+      const cartItem = state.items.find(item => item.id === product.id)
       if (!cartItem) {
-        commit(PUSH_PRODUCT_TO_BASKET, product);
+        commit(PUSH_PRODUCT_TO_BASKET, product)
       } else {
-        commit(INCREMENT_PRODUCT, {id: cartItem.id});
+        commit(INCREMENT_PRODUCT, {id: cartItem.id})
       }
       commit('SET')
     }
@@ -70,8 +71,14 @@ const actions = {
     commit(INCREMENT_PRODUCT, {id})
     commit('SET')
   },
-  [SET_CHECKOUT]: ({state, commit}) => {
-    commit(SET_CHECKOUT)
+  [SET_CHECKOUT]: ({state, commit}, data) => {
+    return new Promise((resolve, reject) => {
+      axios.post('/api/order', data).then(res => {
+        resolve(res)
+        commit(SET_CHECKOUT, res)
+      }).finally(() => {
+      })
+    })
   }
 }
 
@@ -140,4 +147,4 @@ export default {
   getters,
   actions,
   mutations
-};
+}
