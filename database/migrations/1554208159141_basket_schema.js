@@ -8,13 +8,11 @@ class BasketSchema extends Schema {
     this.create('baskets', (table) => {
       table.increments()
       table.timestamps()
+      table.integer('order_id')
       table.integer('product_id')
       table.integer('quantity')
-      table.integer('user_id') // If user is auth
-      table.integer('customer_id') // If anonymus user
-      table.float('cost')
+      table.float('total').defaultTo(0)
       table.float('discount').defaultTo(0)
-      table.integer('order_id')
     })
   }
 
