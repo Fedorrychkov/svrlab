@@ -105,7 +105,42 @@ export default {
       margin-right: 12px;
       width: 16px;
     }
+  }
 
+  @media (max-width: 992px) {
+    min-width: var(--admin-sidenav-sm-width);
+    max-width: var(--admin-sidenav-sm-width);
+
+    &__link {
+      justify-content: center;
+
+      .icon {
+        margin-right: 0;
+      }
+
+      .text {
+        display: none;
+      }
+    }
+
+    &__head {
+      padding-left: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 0;
+    }
+
+    &__logo {
+
+      .logo {
+        font-size: 16px;
+      }
+
+      .panel {
+        display: none;
+      }
+    }
   }
 }
 </style>

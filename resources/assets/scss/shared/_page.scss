@@ -37,4 +37,10 @@
       color: var(--second-color);
     }
   }
+
+  @media (max-width: 992px) {
+    &__admin {
+      margin-left: var(--admin-sidenav-sm-width);
+    }
+  }
 }
