@@ -220,8 +220,11 @@ export default {
         discount: 0,
         basket: this.products
       };
-      console.log(payload);
-      this.$store.dispatch(`modules/cart/${SET_CHECKOUT}`, payload).then(res => console.log(res));
+      this.$store.dispatch(`modules/cart/${SET_CHECKOUT}`, payload).then(res => {
+        if (res.status === 200) {
+          this.$router.push({path: '/'});
+        }
+      });
       // const status = this.edit ? UPDATE_AMPLIFIER : ADD_AMPLIFIER;
       // this.$store.dispatch(`modules/amplifier/${status}`, product)
       //   .then(res => {

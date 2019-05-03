@@ -76,6 +76,7 @@ const actions = {
       axios.post('/api/order', data).then(res => {
         resolve(res)
         commit(SET_CHECKOUT, res)
+        commit('SET')
       }).finally(() => {
       })
     })
@@ -110,6 +111,7 @@ const mutations = {
     state.items = items
   },
   [SET_CHECKOUT]: (state) => {
+    state.items = []
   },
   [GET_BASKET]: (state, items) => {
     state.items = items

@@ -64,6 +64,7 @@ class OrderController {
 
 
       await Promise.all(basket.map(async (item) => {
+        // TODO: Сделать отнимание количества товара из корзины ( Inventory - Quantity )
         const product = new Basket()
         product.order_id = order.id
         product.product_id = item.id
@@ -78,6 +79,18 @@ class OrderController {
       response.badRequest(err)
     }
   }
+
+  async all ({request, response}) {
+    try {
+      const orders = await Database
+        .from('orders')
+        .orderBy('updated_at', 'desc')
+      response.ok(orders)
+    } catch (err) {
+      response.badRequest(err)
+    }
+  }
+
 }
 
 module.exports = OrderController
