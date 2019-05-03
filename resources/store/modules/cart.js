@@ -123,7 +123,7 @@ const mutations = {
     if (process.browser) {
       let items = JSON.parse(localStorage.getItem('svrlab.basket')) || []
       if (amplifiers) {
-        const filtered = items.map((item) => {
+        const filtered = items.filter((item) => {
           const amplifier = amplifiers.find(amp => amp.id === item.id)
           if (amplifier) {
             if (!amplifier.inventory) {
@@ -131,8 +131,8 @@ const mutations = {
             }
             amplifier.quantity = item.quantity
             item = amplifier
+            return item
           }
-          return item
         })
         items = filtered
         localStorage.setItem('svrlab.basket', JSON.stringify(items))
