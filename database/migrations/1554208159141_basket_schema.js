@@ -12,6 +12,7 @@ class BasketSchema extends Schema {
       table.integer('product_id')
       table.integer('quantity')
       table.float('total').defaultTo(0)
+      table.float('cost').defaultTo(0)
       table.float('discount').defaultTo(0)
     })
   }

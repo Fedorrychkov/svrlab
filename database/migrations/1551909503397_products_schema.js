@@ -7,7 +7,7 @@ class ProductsSchema extends Schema {
   up () {
     this.table('products', (table) => {
       // alter table
-      table.integer('cost').notNullable().defaultTo(0)
+      table.float('cost').notNullable().defaultTo(0)
     })
   }
 
