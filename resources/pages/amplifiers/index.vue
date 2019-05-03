@@ -4,10 +4,13 @@
       <h4 class="title">Усилители</h4>
     </template>
     <template slot="content">
-      <template v-if="!loading && amplifiers.length > 0">
+      <template v-if="!loading && amplifiers.length">
         <div class="list">
           <amplifier-card v-for="item in amplifiers" :key="item.id" :item="item" />
         </div>
+      </template>
+      <template v-if="!loading && !amplifiers.length">
+        <p class="empty">Приносим свои извинения, но список предложений ещё не готов, наши специалисты работают над этим!</p>
       </template>
     </template>
   </page-section>
@@ -21,7 +24,7 @@ import PageSection from '@/components/shared/PageSection';
 export default {
   head() {
     return {
-      title: 'Музыкально оборудование от SVR'
+      title: 'Музыкальное оборудование от SVR'
     }
   },
   data() {
@@ -57,6 +60,13 @@ export default {
   margin-left: -15px;
   margin-right: -15px;
   flex-wrap: wrap;
+}
+
+.empty {
+  color: #fff;
+  font-size: 20px;
+  text-align: center;
+  width: 100%;
 }
 </style>
 
