@@ -121,6 +121,22 @@ class OrderController {
     }
   }
 
+  async setstatus ({request, response}) {
+    const {
+      statusId,
+      orderId
+    } = request.only([
+      'orderId', 'statusId'
+    ])
+    try {
+      const order = await Order.find(orderId)
+      order.status_id = statusId
+      response.ok(await order.save())
+    } catch (err) {
+      response.badRequest(err)
+    }
+  }
+
 }
 
 module.exports = OrderController
