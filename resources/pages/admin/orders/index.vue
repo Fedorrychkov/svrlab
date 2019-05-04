@@ -8,6 +8,9 @@
         <template slot="head">
         </template>
         <template slot="content">
+          <div class="list">
+            <order-card v-for="item in orders" :key="item.id" :item="item" />
+          </div>
         </template>
       </pane>
     </template>
@@ -16,6 +19,7 @@
 <script>
 import AdminTemplate from '@/components/shared/AdminPageTemplate';
 import Pane from '@/components/shared/Pane';
+import OrderCard from '@/components/core/orders/OrderCard';
 import { GET_ORDERS } from '@/store/actions/order.js';
 
 export default {
@@ -27,11 +31,11 @@ export default {
   layout: 'admin',
   components: {
     AdminTemplate,
-    Pane
+    Pane,
+    OrderCard
   },
   computed: {
     orders() {
-      console.log(this.$store.getters[`modules/order/orders`]);
       return this.$store.getters[`modules/order/orders`];
     }
   },
@@ -44,3 +48,12 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+.list {
+  margin: 15px -15px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+</style>
+
