@@ -115,7 +115,7 @@
                   </div>
                   <div class="checkout__row field end">
                     <div class="key"><h5>Итого</h5></div>
-                    <div class="value white-space-nowrap"><p>0 <i class="symbol rouble"> ₽</i></p></div>
+                    <div class="value white-space-nowrap"><p>{{total | numFormat}}  <i class="symbol rouble"> ₽</i></p></div>
                   </div>
                 </div>
               </v-flex>
