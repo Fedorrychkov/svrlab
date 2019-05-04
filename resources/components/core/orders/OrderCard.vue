@@ -1,5 +1,26 @@
 <template>
   <article class="order-card">
+    <div class="order-card__head">
+      <v-menu offset-y>
+        <template v-slot:activator="{ on }">
+          <v-btn
+            class="order-card__menu"
+            v-on="on"
+          >
+            <v-icon>more_vert</v-icon>
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-tile
+            v-for="el in items"
+            :key="el.id"
+            @click="item.status_id !== el.id && $emit('updateStatus', {statusId: el.id, orderId: item.id})"
+          >
+            <v-list-tile-title>{{ el.title }}</v-list-tile-title>
+          </v-list-tile>
+        </v-list>
+      </v-menu>
+    </div>
     <div class="order-card__row field start">
       <div class="key">№ заказа:</div>
       <div class="value">
@@ -49,19 +70,31 @@
 <script>
 export default {
   props: {
-    item: Object
+    item: Object,
+    items: Array
   },
 }
 </script>
 <style lang="scss" scoped>
 .order-card {
   margin: 15px;
-  max-width: calc(50% - 30px);
+  max-width: calc(33% - 60px);
   width: 100%;
   padding: 15px;
-  background-color: #f4f4f4;
+  background-color: #fff;
   overflow: hidden;
   border-radius: 4px;
+  position: relative;
+
+  &__menu {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    max-width: 20px;
+    min-width: 20px;
+    background-color: transparent !important;
+    box-shadow: none !important;
+  }
 
   &__row {
     display: flex;
