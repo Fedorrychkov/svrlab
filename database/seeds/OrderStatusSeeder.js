@@ -17,7 +17,7 @@ Factory.blueprint('App/Models/OrderStatus', async (faker, i, data) => {
   return {
     id: data.id,
     name: data.name,
-    // type: data.type
+    title: data.title
   }
 })
 
@@ -27,50 +27,49 @@ class OrderStatusSeeder {
       {
         id: 1,
         name: 'CREATED',
-        title: 'Создан',
+        title: 'Создан'
       },
       {
         id: 2,
         name: 'PAYED',
-        title: 'Оплачен',
+        title: 'Оплачен'
       },
       {
         id: 3,
         name: 'CANCELED',
-        title: 'Закрыт',
+        title: 'Закрыт'
       },
       {
         id: 4,
         name: 'RESOLVED',
-        title: 'Завершён',
+        title: 'Завершён'
       },
       {
         id: 5,
         name: 'REJECTED',
-        title: 'Отменён',
+        title: 'Отменён'
       },
       {
         id: 6,
         name: 'SENDED',
-        title: 'Отправлен',
+        title: 'Отправлен'
       },
       {
         id: 7,
         name: 'PROGRESS',
-        title: 'Обрабатывается',
+        title: 'Обрабатывается'
       },
       {
         id: 8,
         name: 'CHECKOUT',
-        title: 'Оформлен',
-      },
-    ];
+        title: 'Оформлен'
+      }
+    ]
     await Promise.all(statuses.map(async (item) => {
       const status = await Factory
         .model('App/Models/OrderStatus')
-        .create({ ...item});
-    }));
-
+        .create({...item})
+    }))
   }
 }
 
