@@ -34,6 +34,8 @@ Route.group(() => {
 
 Route.group(() => {
   Route.post('', 'OrderController.create')
+  Route.put('setstatus', 'OrderController.setstatus')
+  Route.get('statuses', 'OrderStatusController.all')
   Route.get('all', 'OrderController.all')
   Route.get(':id', 'OrderController.get')
 }).prefix('api/order')
@@ -49,7 +51,7 @@ Route.any('/api/graphql', graphqlAdonis({ schema: schema }))
 Route.get(
   '/api/graphiql',
   graphiqlAdonis({
-    endpointURL: '/api/graphql',
+    endpointURL: '/api/graphql'
   }),
 )
 

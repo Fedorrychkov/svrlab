@@ -1,18 +1,21 @@
 import {
   GET_ORDERS,
-  UPDATE_ORDER,
-  GET_ORDER
+  GET_ORDER,
+  GET_ORDER_STATUSES,
+  SET_STATUS
 } from '../actions/order'
 import axios from 'axios'
 
 const state = () => ({
   items: null,
-  order: null
+  order: null,
+  statuses: null
 })
 
 const getters = {
   orders: state => state.items,
-  order: state => state.order
+  order: state => state.order,
+  statuses: state => state.statuses
 }
 
 const actions = {
@@ -21,6 +24,8 @@ const actions = {
       axios.get('/api/order/all').then(res => {
         resolve(res)
         commit(GET_ORDERS, res.data)
+      }).catch(err => {
+        reject(err)
       })
     })
   },
@@ -30,6 +35,8 @@ const actions = {
       axios.get(`/api/order/${id}`).then(res => {
         resolve(res)
         commit(GET_ORDER, res.data)
+      }).catch(err => {
+        reject(err)
       })
       // } else {
       //   resolve(state.order)
@@ -37,8 +44,26 @@ const actions = {
       // }
     })
   },
-  [UPDATE_ORDER]: ({commit}, data) => {
-
+  [GET_ORDER_STATUSES]: ({commit}) => {
+    return new Promise((resolve, reject) => {
+      axios.get('/api/order/statuses').then(res => {
+        resolve(res)
+        commit(GET_ORDER_STATUSES, res.data)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
+  [SET_STATUS]: ({commit, dispatch}, data) => {
+    return new Promise((resolve, reject) => {
+      axios.put('/api/order/setstatus', data).then(res => {
+        resolve(res)
+        commit(SET_STATUS, data)
+        dispatch(GET_ORDERS)
+      }).catch(err => {
+        reject(err)
+      })
+    })
   }
 }
 
@@ -49,8 +74,10 @@ const mutations = {
   [GET_ORDER]: (state, orders) => {
     state.order = orders
   },
-  [UPDATE_ORDER]: (state) => {
-
+  [GET_ORDER_STATUSES]: (state, statuses) => {
+    state.statuses = statuses
+  },
+  [SET_STATUS]: (state, data) => {
   }
 }
 
