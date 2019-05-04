@@ -3,7 +3,7 @@
     <div class="order-card__row field start">
       <div class="key">№ заказа:</div>
       <div class="value">
-        <nuxt-link v-if="item.id" :to="`/admin/order/${item.id}`"> {{item.id}} </nuxt-link>
+        <nuxt-link v-if="item.id" :to="`/admin/orders/${item.id}`"> {{item.id}} </nuxt-link>
       </div>
     </div>
     <div class="order-card__row field start">
@@ -13,19 +13,19 @@
     <div class="order-card__row field start">
       <div class="key">Телефон:</div>
       <div class="value">
-        <nuxt-link v-if="item.customer && item.customer.phone" :to="`/admin/order?phone=${item.customer && item.customer.phone}`"> {{item.customer && item.customer.phone}} </nuxt-link>
+        <nuxt-link v-if="item.customer && item.customer.phone" :to="`/admin/orders?phone=${item.customer && item.customer.phone}`"> {{item.customer && item.customer.phone}} </nuxt-link>
       </div>
     </div>
     <div class="order-card__row field start">
       <div class="key">E-mail:</div>
       <div class="value">
-        <nuxt-link v-if="item.customer && item.customer.email" :to="`/admin/order?email=${item.customer && item.customer.email}`"> {{item.customer && item.customer.email}} </nuxt-link>
+        <nuxt-link v-if="item.customer && item.customer.email" :to="`/admin/orders?email=${item.customer && item.customer.email}`"> {{item.customer && item.customer.email}} </nuxt-link>
       </div>
     </div>
     <div class="order-card__row field start">
       <div class="key">Индекс:</div>
       <div class="value">
-        <nuxt-link v-if="item.zip" :to="`/admin/order?zip=${item.zip}`"> {{item.zip}} </nuxt-link>
+        <nuxt-link v-if="item.zip" :to="`/admin/orders?zip=${item.zip}`"> {{item.zip}} </nuxt-link>
       </div>
     </div>
     <div class="order-card__row field start">
@@ -33,7 +33,7 @@
       <div class="value">
         <nuxt-link
           v-if="item.country || item.city || item.address"
-          :to="`/admin/order?address=${item.country},${item.city},${item.address}`"> {{item.country}}, {{item.city}}, {{item.address}} </nuxt-link>
+          :to="`/admin/orders?address=${item.country},${item.city},${item.address}`"> {{item.country}}, {{item.city}}, {{item.address}} </nuxt-link>
       </div>
     </div>
     <div class="order-card__row field start">

@@ -4,6 +4,8 @@
 const Order = use('App/Models/Order')
 const Basket = use('App/Models/Basket')
 const Customer = use('App/Models/Customer')
+const Product = use('App/Models/Product')
+const Image = use('App/Models/Image')
 const Database = use('Database')
 
 class OrderController {
@@ -80,12 +82,40 @@ class OrderController {
     }
   }
 
-  async all ({request, response}) {
+  async all ({request, response, params}) {
     try {
-      const orders = await Database
-        .from('orders')
-        .orderBy('updated_at', 'desc')
+      const prms = null
+      let orders = {}
+      if (!prms) {
+        orders = await Database
+          .from('orders')
+          .orderBy('updated_at', 'desc')
+      }
       response.ok(orders)
+    } catch (err) {
+      response.badRequest(err)
+    }
+  }
+
+  async get ({request, response, params}) {
+    try {
+      const order = await Order.find(params.id)
+      const customer = await Customer.find(order.customer_id)
+      const basket = await Database.from('baskets').where({order_id: order.id})
+      let products = []
+      await Promise.all(basket.map(async (item) => {
+        let product = await Product.find(item.product_id)
+        product = product.toJSON()
+        let images = []
+        await Promise.all(JSON.parse(product.images).map(async (imgId) => {
+          const image = await Image.find(imgId)
+          image && images.push(image)
+        }))
+        product.images = images
+        item.product = product
+        products.push(item)
+      }))
+      response.ok({...order.toJSON(), customer: customer, basket: basket})
     } catch (err) {
       response.badRequest(err)
     }

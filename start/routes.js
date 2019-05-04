@@ -35,6 +35,7 @@ Route.group(() => {
 Route.group(() => {
   Route.post('', 'OrderController.create')
   Route.get('all', 'OrderController.all')
+  Route.get(':id', 'OrderController.get')
 }).prefix('api/order')
 
 Route.group(() => {
