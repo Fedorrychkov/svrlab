@@ -2,11 +2,11 @@
   <article class="amplifier-card">
     <div class="amplifier-card__container">
       <div class="amplifier-card__meta item">
-        <nuxt-link class="amplifier-card__preview" v-if="item.images.length > 0" :to="`/amplifiers/${item.id}`">
+        <nuxt-link class="amplifier-card__preview" v-if="item.images.length > 0" :to="link">
           <preview-photo :item="item" />
         </nuxt-link>
         <div class="amplifier-card__info">
-          <h4 class="amplifier-card__title"><nuxt-link :to="`/amplifiers/${item.id}`">{{item.name}}</nuxt-link></h4>
+          <h4 class="amplifier-card__title"><nuxt-link :to="link">{{item.name}}</nuxt-link></h4>
           <p class="amplifier-card__short">{{item.short}}</p>
         </div>
       </div>
@@ -17,7 +17,7 @@
 import PreviewPhoto from '@/components/shared/ui/PreviewPhoto';
 
 export default {
-  props: ['item'],
+  props: ['item', 'link'],
   components: {
     PreviewPhoto
   }
