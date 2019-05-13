@@ -3,26 +3,11 @@ import {
   GET_AMPLIFIERS,
   ADD_AMPLIFIER,
   UPDATE_AMPLIFIER,
-  GET_AMPLIFIER_IMAGES,
   PUSH_AMPLIFIER_IMAGES,
   AMPLIFIER_LOADING,
-  AMPLIFIER_ERROR,
-  AMPLIFIER_SUCCESS
-} from "../actions/amplifier"
-import gql from 'graphql-tag'
+  AMPLIFIER_ERROR
+} from '../actions/amplifier'
 import axios from 'axios'
-
-const amplifierMock = {
-  id: 1,
-  name: '',
-  short: '',
-  description: '',
-  customFields: null,
-  preview: null,
-  withdrawn: false, // true значит сняты с продажи
-  inventory: 10, // Если инвентори пуст, то можно сделать под заказ
-  images: null
-}
 
 const state = () => ({
   loading: false,
@@ -37,7 +22,7 @@ const getters = {
   },
   amplifier: (state, getters) => {
     return state.amplifier
-  },
+  }
 }
 
 const actions = {
@@ -54,6 +39,7 @@ const actions = {
       axios.post('/api/amplifier', data).then(res => {
         resolve(res)
       }).catch(err => {
+        reject(err)
         commit(AMPLIFIER_ERROR, true)
       }).finally(() => {
         commit(AMPLIFIER_LOADING, false)
@@ -73,6 +59,7 @@ const actions = {
       axios.put('/api/amplifier', data).then(res => {
         resolve(res)
       }).catch(err => {
+        reject(err)
         commit(AMPLIFIER_ERROR, true)
       }).finally(() => {
         commit(AMPLIFIER_LOADING, false)
@@ -88,7 +75,7 @@ const actions = {
       }).catch(err => {
         rej(err)
         commit(AMPLIFIER_ERROR, true)
-      }).finally( () => {
+      }).finally(() => {
         commit(AMPLIFIER_LOADING, false)
       })
     })
@@ -98,12 +85,11 @@ const actions = {
     return new Promise((resolve, rej) => {
       axios.get(`/api/amplifier/${id}`).then(res => {
         commit(GET_AMPLIFIER, res.data)
-        console.log(res)
         resolve(res)
       }).catch(err => {
         rej(err)
         commit(AMPLIFIER_ERROR, true)
-      }).finally( () => {
+      }).finally(() => {
         commit(AMPLIFIER_LOADING, false)
       })
     })
@@ -142,7 +128,7 @@ const mutations = {
   [GET_AMPLIFIER]: (state, data) => {
     data.customFields = JSON.parse(data.customFields)
     state.amplifier = data
-  },
+  }
 }
 
 export default {
