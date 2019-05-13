@@ -1,13 +1,13 @@
 'use strict'
-const CustomField = use('App/Models/CustomField');
+const CustomField = use('App/Models/CustomField')
 const Database = use('Database')
 
 class CustomFieldController {
   async all ({response}) {
     try {
-      response.ok(await CustomField.all());
+      response.ok(await CustomField.all())
     } catch (error) {
-      response.badRequest(error);
+      response.badRequest(error)
     }
   }
 
@@ -15,10 +15,10 @@ class CustomFieldController {
     try {
       const fields = await Database
         .from('custom-fields')
-        .where('type', '=', params.type);
-      response.ok(fields);
+        .where('type', '=', params.type)
+      response.ok(fields)
     } catch (error) {
-      response.badRequest(error);
+      response.badRequest(error)
     }
   }
 
@@ -27,13 +27,13 @@ class CustomFieldController {
       const {
         type,
         name
-      } = request.only(['type', 'name']);
-      const field = new CustomField();
-      field.type = type;
-      field.name = name;
-      response.ok(await field.save());
+      } = request.only(['type', 'name'])
+      const field = new CustomField()
+      field.type = type
+      field.name = name
+      response.ok(await field.save())
     } catch (error) {
-      response.badRequest(error);
+      response.badRequest(error)
     }
   }
 }
