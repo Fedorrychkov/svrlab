@@ -2,7 +2,7 @@
   <article class="product-item">
     <div class="product-item__container">
       <div class="product-item__meta item">
-        <nuxt-link class="product-item__preview" v-if="item.images.length > 0" :to="`/amplifiers/${item.id}`">
+        <nuxt-link class="product-item__preview" v-if="item.images.length > 0" :to="public">
           <template v-for="img in item.images" >
             <img :src="`/${img.path}/${img.large}`" :alt="`Картинка для ${item.name}`" :key="img.id" v-if="item.mainPhoto && item.mainPhoto === img.id" />
           </template>
@@ -23,7 +23,7 @@
 </template>
 <script>
 export default {
-  props: ['item', 'link']
+  props: ['item', 'link', 'public']
 }
 </script>
 <style lang="scss">
