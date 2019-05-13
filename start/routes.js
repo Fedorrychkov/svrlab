@@ -33,6 +33,13 @@ Route.group(() => {
 }).prefix('api/amplifier')
 
 Route.group(() => {
+  Route.post('', 'MusicController.create')
+  Route.put('', 'MusicController.update')
+  Route.get('', 'MusicController.all')
+  Route.get(':id', 'MusicController.get')
+}).prefix('api/music')
+
+Route.group(() => {
   Route.post('', 'OrderController.create')
   Route.put('setstatus', 'OrderController.setstatus')
   Route.get('statuses', 'OrderStatusController.all')
