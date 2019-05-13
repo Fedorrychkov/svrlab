@@ -11,7 +11,7 @@
         <template slot="content">
 
           <div class="list" v-if="amplifiers.length > 0">
-            <product-card v-for="item in amplifiers" :key="item.id" :item="item" :link="`/admin/amplifiers/edit/${item.id}`"/>
+            <product-card v-for="item in amplifiers" :key="item.id" :item="item" :public="`/amplifiers/${item.id}`" :link="`/admin/amplifiers/edit/${item.id}`"/>
           </div>
           <p class="content-empty" v-if="amplifiers.length < 1 && !loading">Список товаров пуст :(</p>
           <p class="content-empty" v-if="loading">Загрузка...</p>
@@ -24,9 +24,8 @@
 <script>
 import AdminTemplate from '@/components/shared/AdminPageTemplate';
 import Pane from '@/components/shared/Pane';
-import ProductCard from '@/components/core/admin/ProductCard'
+import ProductCard from '@/components/core/admin/ProductCard';
 import { GET_AMPLIFIERS } from '@/store/actions/amplifier.js';
-import gql from 'graphql-tag';
 
 export default {
   layout: 'admin',
