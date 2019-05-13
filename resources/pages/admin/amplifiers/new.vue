@@ -27,10 +27,5 @@ export default {
     Pane,
     CreateAmplifier
   },
-  // head() {
-  //   return {
-  //     title: `[SVRLAB-ADMIN] - `
-  //   }
-  // }
 }
 </script>
