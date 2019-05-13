@@ -6,7 +6,7 @@
     <template slot="content">
       <template v-if="!loading && amplifiers.length">
         <div class="list">
-          <amplifier-card v-for="item in amplifiers" :key="item.id" :item="item" />
+          <amplifier-card v-for="item in amplifiers" :key="item.id" :item="item" :link="`/amplifiers/${item.id}`" />
         </div>
       </template>
       <template v-if="!loading && !amplifiers.length">
