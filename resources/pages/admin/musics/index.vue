@@ -13,7 +13,7 @@
           <div class="list" v-if="musics.length > 0">
             <product-card v-for="item in musics" :key="item.id" :item="item" :public="`/musics/${item.id}`" :link="`/admin/musics/edit/${item.id}`"/>
           </div>
-          <p class="content-empty" v-if="musics.length < 1 && !loading">Список товаров пуст :(</p>
+          <p class="content-empty" v-if="musics.length < 1 && !loading">Список музыки пуст :(</p>
           <p class="content-empty" v-if="loading">Загрузка...</p>
         </template>
       </pane>
@@ -46,6 +46,7 @@ export default {
   created() {
     this.$store.dispatch(`modules/music/${GET_MUSICS}`)
       .catch(err => {
+        console.log(err);
       }).finally(() => {
         this.loading = false;
       });
@@ -57,3 +58,8 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+.list {
+  margin: 15px 0;
+}
+</style>
