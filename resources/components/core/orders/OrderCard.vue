@@ -78,7 +78,7 @@ export default {
 <style lang="scss" scoped>
 .order-card {
   margin: 15px;
-  max-width: calc(33% - 60px);
+  max-width: calc(50% - 30px);
   width: 100%;
   padding: 15px;
   background-color: #fff;
@@ -100,15 +100,24 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    flex-wrap: wrap;
   }
 
   .field {
+    padding: 4px;
+    border-radius: 4px;
+
     &.start {
       justify-content: flex-start;
     }
 
+    &:nth-child(even) {
+      background-color: rgba(0, 0, 0, .1);
+    }
+
     .key {
       margin-right: 10px;
+      font-weight: 500;
     }
   }
 }
