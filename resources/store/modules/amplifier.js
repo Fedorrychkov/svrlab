@@ -17,10 +17,10 @@ const state = () => ({
 })
 
 const getters = {
-  amplifiers: (state, getters) => {
+  amplifiers: (state) => {
     return state.amplifiers
   },
-  amplifier: (state, getters) => {
+  amplifier: (state) => {
     return state.amplifier
   }
 }
@@ -66,8 +66,9 @@ const actions = {
       })
     })
   },
-  [GET_AMPLIFIERS]: ({commit, dispatch}) => {
+  [GET_AMPLIFIERS]: ({commit, state}) => {
     commit(AMPLIFIER_LOADING, true)
+    if (state.amplifiers.length) return
     return new Promise((resolve, rej) => {
       axios.get('/api/amplifier').then(res => {
         commit(GET_AMPLIFIERS, res.data)
@@ -80,7 +81,7 @@ const actions = {
       })
     })
   },
-  [GET_AMPLIFIER]: ({commit, dispatch}, id) => {
+  [GET_AMPLIFIER]: ({commit}, id) => {
     commit(AMPLIFIER_LOADING, true)
     return new Promise((resolve, rej) => {
       axios.get(`/api/amplifier/${id}`).then(res => {

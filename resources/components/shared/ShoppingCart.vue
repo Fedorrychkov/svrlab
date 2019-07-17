@@ -53,17 +53,20 @@ export default {
       return this.$store.getters[`modules/cart/basketCount`];
     },
     products() {
-      const products = this.$store.getters[`modules/cart/cartProducts`];
+      return this.$store.getters[`modules/cart/cartProducts`];
+    },
+    total() {
+      return this.$store.getters[`modules/cart/cartTotalPrice`];
+    }
+  },
+  watch: {
+    products(products) {
       if (products.length > 0) {
         this.showBasket = true;
         const timerId = setTimeout(() => {
           this.showBasket = false;
         }, 3000);
       }
-      return products;
-    },
-    total() {
-      return this.$store.getters[`modules/cart/cartTotalPrice`];
     }
   },
   created() {

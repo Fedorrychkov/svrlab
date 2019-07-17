@@ -1,33 +1,24 @@
 <template>
   <section class="homepage">
-    <page-section>
+    <custom-slider :images="sliderImages" />
+    <page-section v-if="!loading && amplifiers.length">
       <template slot="title">
         <h4 class="title">Усилители</h4>
       </template>
       <template slot="content">
-        <template v-if="!loading && amplifiers.length">
-          <div class="list">
-            <amplifier-card v-for="item in amplifiers" :key="item.id" :item="item" :link="`/amplifiers/${item.id}`" />
-          </div>
-        </template>
-        <template v-if="!loading && !amplifiers.length">
-          <p class="empty">Приносим свои извинения, но список предложений ещё не готов, наши специалисты работают над этим!</p>
-        </template>
+        <div class="list">
+          <amplifier-card v-for="item in amplifiers" :key="item.id" :item="item" :link="`/amplifiers/${item.id}`" />
+        </div>
       </template>
     </page-section>
-    <page-section>
+    <page-section v-if="!loading && musics.length">
       <template slot="title">
         <h4 class="title">Музыка</h4>
       </template>
       <template slot="content">
-        <template v-if="!loading && musics.length">
-          <div class="list">
-            <amplifier-card v-for="item in musics" :key="item.id" :item="item" :link="`/musics/${item.id}`" />
-          </div>
-        </template>
-        <template v-if="!loading && !musics.length">
-          <p class="empty">Приносим свои извинения, но список предложений ещё не готов, наши специалисты работают над этим!</p>
-        </template>
+        <div class="list">
+          <amplifier-card v-for="item in musics" :key="item.id" :item="item" :link="`/musics/${item.id}`" />
+        </div>
       </template>
     </page-section>
   </section>
@@ -37,6 +28,7 @@ import { GET_AMPLIFIERS } from '@/store/actions/amplifier.js';
 import { GET_MUSICS } from '@/store/actions/music.js';
 import AmplifierCard from '@/components/core/amplifiers/AmplifierCard';
 import PageSection from '@/components/shared/PageSection';
+import CustomSlider from '@/components/shared/Slider/CustomSlider';
 
 export default {
   head() {
@@ -47,6 +39,9 @@ export default {
   data() {
     return {
       loading: true,
+      sliderImages: [
+        'corrector.jpg',
+      ],
     }
   },
   computed: {
@@ -68,7 +63,8 @@ export default {
   },
   components: {
     AmplifierCard,
-    PageSection
+    PageSection,
+    CustomSlider,
   }
 }
 </script>

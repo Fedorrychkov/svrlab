@@ -1,6 +1,7 @@
 <template>
   <div class="page page__full page__default">
     <div class="page__content">
+      <top-bar />
       <my-header/>
       <nuxt/>
     </div>
@@ -11,6 +12,7 @@
 <script>
 import MyFooter from '~/components/partial/Footer'
 import MyHeader from '~/components/partial/Header'
+import TopBar from '~/components/partial/AdminTopbar';
 
 export default {
   data() {
@@ -29,7 +31,8 @@ export default {
   },
   components: {
     MyFooter,
-    MyHeader
+    MyHeader,
+    TopBar,
   },
 }
 </script>

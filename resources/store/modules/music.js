@@ -26,7 +26,7 @@ const getters = {
 }
 
 const actions = {
-  [ADD_MUSIC]: ({commit, dispatch}, data) => {
+  [ADD_MUSIC]: ({commit}, data) => {
     const images = data.images.map(item => {
       return item.id
     })
@@ -46,7 +46,7 @@ const actions = {
       })
     })
   },
-  [UPDATE_MUSIC]: ({commit, dispatch}, data) => {
+  [UPDATE_MUSIC]: ({commit}, data) => {
     const images = data.images.map(item => {
       return item.id
     })
@@ -66,8 +66,9 @@ const actions = {
       })
     })
   },
-  [GET_MUSICS]: ({commit, dispatch}) => {
+  [GET_MUSICS]: ({commit, state}) => {
     commit(MUSIC_LOADING, true)
+    if (state.musics.length) return
     return new Promise((resolve, rej) => {
       axios.get('/api/music').then(res => {
         commit(GET_MUSICS, res.data)
@@ -80,7 +81,7 @@ const actions = {
       })
     })
   },
-  [GET_MUSIC]: ({commit, dispatch}, id) => {
+  [GET_MUSIC]: ({commit}, id) => {
     commit(MUSIC_LOADING, true)
     return new Promise((resolve, rej) => {
       axios.get(`/api/music/${id}`).then(res => {
@@ -103,7 +104,7 @@ const actions = {
 
 const mutations = {
   [ADD_MUSIC]: (state, data) => {
-    state.MUSICs.push(data)
+    state.musics.push(data)
   },
   [UPDATE_MUSIC]: (state, data) => {
     const musics = state.musics.map(item => {

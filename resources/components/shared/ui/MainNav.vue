@@ -12,6 +12,7 @@ export default {
   data() {
     return {
       nav: [
+        {link: '/', name: 'Home'},
         {link: '/musics', name: 'Musics'},
         {link: '/amplifiers', name: 'Amplifiers'},
         {link: '/about', name: 'About'},
@@ -42,7 +43,7 @@ export default {
       opacity: .8;
     }
 
-    &.nuxt-link-active {
+    &.nuxt-link-exact-active {
       font-weight: 600;
     }
   }
