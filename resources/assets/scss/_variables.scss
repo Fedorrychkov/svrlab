@@ -79,6 +79,7 @@ $animation-slow:            .45s;
 :root {
   --footer: #0171BF;
   --primary-color: #1F1E21;
+  --primary-color-alpha: rgba(31, 30, 33, .85);
   --second-color: #fff;
   --error-color: #ff5252;
   --info-color: #2196f3;
@@ -95,4 +96,9 @@ $animation-slow:            .45s;
   --offset-md: 16px;
   --offset-lg: 24px;
   --offset-xl: 36px;
+
+  --letter-spacing-xs: 0.5px;
+  --letter-spacing-sm: 1.5px;
+  --letter-spacing-md: 3px;
+  --letter-spacing-lg: 4.5px;
 }
