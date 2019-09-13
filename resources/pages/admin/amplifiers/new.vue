@@ -27,5 +27,8 @@ export default {
     Pane,
     CreateAmplifier
   },
+  mounted() {
+    console.log('created')
+  }
 }
 </script>

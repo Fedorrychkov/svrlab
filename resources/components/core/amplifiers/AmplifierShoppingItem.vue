@@ -16,9 +16,9 @@
             {{ item.quantity * item.cost | numFormat }} <i class="symbol rouble"> ₽</i>
           </span>
           <span class="remove" @click="removeProduct(item.id)">
-            <no-ssr>
+            <client-only>
               <font-awesome-icon class="icon" :icon="['fa', 'trash-alt']"/>
-            </no-ssr>
+            </client-only>
           </span>
         </div>
       </div>

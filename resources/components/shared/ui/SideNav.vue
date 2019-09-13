@@ -10,9 +10,9 @@
       <li class="sidenav__item" v-for="(item, i) in nav" :key="i">
         <nuxt-link class="sidenav__link" :to="item.link">
           <span class="icon">
-            <no-ssr>
+            <client-only>
               <font-awesome-icon :icon="['fa', item.icon]" />
-            </no-ssr>
+            </client-only>
           </span>
           <span class="text">{{item.name}}</span>
         </nuxt-link>

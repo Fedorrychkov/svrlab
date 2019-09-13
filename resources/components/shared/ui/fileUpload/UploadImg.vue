@@ -4,9 +4,9 @@
       class="img-loader__container"
       @click.prevent="onFocus"
       ref="fileTextField">
-      <no-ssr>
+      <client-only>
         <font-awesome-icon :icon="['fa', 'camera']" />
-      </no-ssr>
+      </client-only>
     </button>
     <input type="file"
       :multiple="true"

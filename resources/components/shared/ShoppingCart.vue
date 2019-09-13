@@ -1,5 +1,5 @@
 <template>
-  <no-ssr>
+  <client-only>
     <aside :class="{'shopping-cart': true, 'open': showBasket}">
       <div class="shopping-cart__icon" @click="toggleBasketHide($event)">
         <font-awesome-icon class="icon" :icon="['fa', 'shopping-cart']"/>
@@ -29,7 +29,7 @@
         </div>
       </div>
     </aside>
-  </no-ssr>
+  </client-only>
 </template>
 <script>
 import {

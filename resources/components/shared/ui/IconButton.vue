@@ -1,8 +1,8 @@
 <template>
   <button class="icon-button" @click="$emit('click')">
-    <no-ssr>
+    <client-only>
       <font-awesome-icon class="icon-button__icon" :icon="['fa', icon]" />
-    </no-ssr>
+    </client-only>
     <span class="icon-button__text">{{text}}</span>
   </button>
 </template>

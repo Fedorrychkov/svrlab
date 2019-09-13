@@ -21,8 +21,8 @@ export default {
 <style lang="scss" scoped>
 .slider {
   position: relative;
-  max-height: 600px;
   display: flex;
+  background-color: #fff;
 
   &__item {
     width: 100%;
@@ -37,6 +37,7 @@ export default {
 
   &__image {
     object-fit: cover;
+    position: absolute;
     width: 100%;
     height: 100%;
     transition: 0.3s;
@@ -44,13 +45,15 @@ export default {
 
   &__container {
     width: 100%;
-    position: absolute;
+    position: relative;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     display: flex;
+    z-index: 1;
     flex-direction: column;
+    min-height: 600px;
   }
 
   &__content {

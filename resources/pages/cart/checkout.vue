@@ -9,9 +9,9 @@
           <h4 class="title">{{products.length > 0 ? 'Оформление заказа' : 'Корзина пуста'}}</h4>
         </template>
         <template slot="content">
-          <no-ssr>
+          <client-only>
             <amplifier-shopping-item v-for="item in products" :key="item.id" :item="item" @submit.prevent="create" />
-          </no-ssr>
+          </client-only>
           <div class="checkout__content">
             <v-layout wrap justify-space-between>
               <v-flex xs12 md7>

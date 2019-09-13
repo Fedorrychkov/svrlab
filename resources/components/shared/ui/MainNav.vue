@@ -36,15 +36,16 @@ export default {
   }
 
   &__link {
-    color: #fff;
+    color: #9e9e9e;
+    font-weight: 600;
 
     &:hover {
-      color: #fff;
+      color: #9e9e9e;
       opacity: .8;
     }
 
     &.nuxt-link-exact-active {
-      font-weight: 600;
+      color: #fff;
     }
   }
 }

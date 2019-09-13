@@ -1,7 +1,7 @@
 <template>
   <page-section>
     <template slot="title">
-      <h4 class="title">Усилители</h4>
+      <h4 class="title">Музыка</h4>
     </template>
     <template slot="content">
       <template v-if="!loading && musics.length">
