@@ -3,7 +3,7 @@
     <div class="amplifier-card__container">
       <div class="amplifier-card__meta item">
         <nuxt-link class="amplifier-card__preview" v-if="item.images.length > 0" :to="link">
-          <preview-photo :item="item" />
+          <preview-photo :item="item" :current="current" />
         </nuxt-link>
         <div class="amplifier-card__info">
           <h4 class="amplifier-card__title"><nuxt-link :to="link">{{item.name}}</nuxt-link></h4>
@@ -15,11 +15,18 @@
 </template>
 <script>
 import PreviewPhoto from '@/components/shared/ui/PreviewPhoto';
+import { getMainPhoto } from '@/helpers/product';
 
 export default {
   props: ['item', 'link'],
   components: {
     PreviewPhoto
+  },
+  data: () => ({
+    current: undefined
+  }),
+  mounted() {
+    this.current = getMainPhoto(this.item)
   }
 }
 </script>
