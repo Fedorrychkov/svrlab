@@ -23,6 +23,7 @@ export default {
   position: relative;
   display: flex;
   background-color: #fff;
+  overflow: hidden;
 
   &__item {
     width: 100%;
