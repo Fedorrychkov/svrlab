@@ -85,12 +85,16 @@ class OrderController {
   async all ({request, response, params}) {
     try {
       const prms = null
-      let orders = {}
+      let orders = []
       if (!prms) {
         orders = await Database
           .from('orders')
           .orderBy('updated_at', 'desc')
       }
+      await Promise.all(orders.map(async (item) => {
+        let customer = await Customer.find(item.customer_id)
+        item.customer = customer
+      }))
       response.ok(orders)
     } catch (err) {
       response.badRequest(err)
