@@ -2,14 +2,7 @@
   <div :class="{'amplifier-page': true, 'loading': loading}" v-if="!loading">
     <div class="container">
       <div class="amplifier-page__container">
-        <aside class="amplifier-page__left">
-          <ul class="amplifier-page__previews">
-            <li class="item" v-for="img in amplifier.images" :key="img.id"><img :src="`/${img.path}/${img.large}`" :alt="amplifier.name"></li>
-          </ul>
-          <div class="amplifier-page__preview">
-            <preview-photo :item="amplifier" style="height: auto" />
-          </div>
-        </aside>
+        <product-gallery class="amplifier-page__left" :item="amplifier" />
         <div class="amplifier-page__right">
           <h3 class="amplifier-page__title">{{amplifier.name}}</h3>
           <div class="amplifier-page__info">
@@ -34,7 +27,7 @@
 import { GET_AMPLIFIER } from '@/store/actions/amplifier.js';
 import { ADD_TO_BASKET } from '@/store/actions/cart.js';
 import IconButton from '@/components/shared/ui/IconButton';
-import PreviewPhoto from '@/components/shared/ui/PreviewPhoto';
+import ProductGallery from '@/components/shared/ui/ProductGallery';
 
 export default {
   data() {
@@ -45,7 +38,7 @@ export default {
   },
   components: {
     IconButton,
-    PreviewPhoto
+    ProductGallery
   },
   computed: {
     amplifier() {
@@ -55,15 +48,13 @@ export default {
   created() {
     this.id = this.$router.history.current.params.id;
     this.$store.dispatch(`modules/amplifier/${GET_AMPLIFIER}`, this.id)
-      .catch(err => {
-      }).finally(() => {
+      .finally(() => {
         this.loading = false;
       });
   },
   methods: {
     addProductToBasket() {
-      this.$store.dispatch(`modules/cart/${ADD_TO_BASKET}`, this.amplifier).then(() => {
-      });
+      this.$store.dispatch(`modules/cart/${ADD_TO_BASKET}`, this.amplifier)
     }
   }
 }
@@ -120,39 +111,6 @@ export default {
     i {
       font-style: normal;
     }
-  }
-
-  &__previews {
-    width: 80px;
-    min-width: 80px;
-    height: auto;
-    margin: -15px 0;
-    margin-right: 15px;
-
-    .item {
-      width: 100%;
-      margin: 15px 0;
-      display: block;
-      border-radius: 4px;
-      overflow: hidden;
-      cursor: pointer;
-
-      &:hover {
-        img {
-          transform: scale(1.07);
-        }
-      }
-    }
-  }
-
-  &__preview {
-    height: 550px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(255, 255, 255, .15);
-    overflow: hidden;
-    border-radius: 4px;
   }
 
   @media (max-width: 992px) {

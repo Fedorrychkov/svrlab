@@ -2,14 +2,7 @@
   <div :class="{'amplifier-page': true, 'loading': loading}" v-if="!loading">
     <div class="container">
       <div class="amplifier-page__container">
-        <aside class="amplifier-page__left">
-          <ul class="amplifier-page__previews">
-            <li class="item" v-for="img in music.images" :key="img.id"><img :src="`/${img.path}/${img.large}`" :alt="music.name"></li>
-          </ul>
-          <div class="amplifier-page__preview">
-            <preview-photo :item="music" style="height: auto" />
-          </div>
-        </aside>
+        <product-gallery class="amplifier-page__left" :item="music" />
         <div class="amplifier-page__right">
           <h3 class="amplifier-page__title">{{music.name}}</h3>
           <div class="amplifier-page__info">
@@ -22,10 +15,12 @@
             </p>
           </div>
           <icon-button class="amplifier-page__button" text="Добавить в корзину" icon="cart-plus" @click="addProductToBasket()" />
+          <div class="musics">
+            <music-example />
+          </div>
         </div>
       </div>
-      <div class="amplifier-page__content">
-
+      <div class="amplifier-page__content content">
       </div>
     </div>
   </div>
@@ -34,7 +29,8 @@
 import { GET_MUSIC } from '@/store/actions/music.js';
 import { ADD_TO_BASKET } from '@/store/actions/cart.js';
 import IconButton from '@/components/shared/ui/IconButton';
-import PreviewPhoto from '@/components/shared/ui/PreviewPhoto';
+import MusicExample from '@/components/core/musics/MusicExample';
+import ProductGallery from '@/components/shared/ui/ProductGallery';
 
 export default {
   data() {
@@ -45,7 +41,8 @@ export default {
   },
   components: {
     IconButton,
-    PreviewPhoto
+    ProductGallery,
+    MusicExample
   },
   computed: {
     music() {
@@ -55,15 +52,13 @@ export default {
   created() {
     this.id = this.$router.history.current.params.id;
     this.$store.dispatch(`modules/music/${GET_MUSIC}`, this.id)
-      .catch(err => {
-      }).finally(() => {
+      .finally(() => {
         this.loading = false;
       });
   },
   methods: {
     addProductToBasket() {
-      this.$store.dispatch(`modules/cart/${ADD_TO_BASKET}`, this.music).then(() => {
-      });
+      this.$store.dispatch(`modules/cart/${ADD_TO_BASKET}`, this.music)
     }
   }
 }
@@ -89,12 +84,6 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-
-    img {
-      width: 100%;
-      display: block;
-      transition: all .15s ease-in-out;
-    }
   }
 
   &__right {
@@ -122,37 +111,8 @@ export default {
     }
   }
 
-  &__previews {
-    width: 80px;
-    min-width: 80px;
-    height: auto;
-    margin: -15px 0;
-    margin-right: 15px;
-
-    .item {
-      width: 100%;
-      margin: 15px 0;
-      display: block;
-      border-radius: 4px;
-      overflow: hidden;
-      cursor: pointer;
-
-      &:hover {
-        img {
-          transform: scale(1.07);
-        }
-      }
-    }
-  }
-
-  &__preview {
-    height: 550px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(255, 255, 255, .15);
-    overflow: hidden;
-    border-radius: 4px;
+  .content {
+    margin: 32px 0;
   }
 
   @media (max-width: 992px) {
