@@ -10,7 +10,7 @@
         <ul class="shopping-cart__products">
           <li class="shopping-cart__product" v-for="item in products" :key="item.id">
             <div class="shopping-cart__preview">
-              <preview-photo :item="item" />
+              <preview-photo :item="item" :current="getMainPhoto(item)" />
             </div>
             <div class="shopping-cart__meta">
               <span class="shopping-cart__name">{{item.name}} x{{item.quantity}}</span>
@@ -37,12 +37,14 @@ import {
   GET_BASKET
 } from '@/store/actions/cart.js';
 import PreviewPhoto from '@/components/shared/ui/PreviewPhoto';
+import { getMainPhoto } from '@/helpers/product';
 
 export default {
   data() {
     return {
       showBasket: false,
-      timerId: null
+      timerId: null,
+      getMainPhoto: getMainPhoto
     }
   },
   components: {

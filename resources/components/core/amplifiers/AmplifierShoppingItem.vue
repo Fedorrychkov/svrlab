@@ -1,7 +1,7 @@
 <template>
   <article :class="{'shopping-item': true, 'has-error': item.quantity > item.inventory}">
     <div class="shopping-item__preview">
-      <preview-photo :item="item" />
+      <preview-photo :item="item" :current="getMainPhoto(item)" />
     </div>
     <div class="shopping-item__info">
       <h6 class="shopping-item__title title">
@@ -32,8 +32,12 @@
 import PreviewPhoto from '@/components/shared/ui/PreviewPhoto';
 import ShoppingItemCounter from './ShoppingItemCounter';
 import { REMOVE_FROM_BASKET } from '@/store/actions/cart.js';
+import { getMainPhoto } from '@/helpers/product';
 
 export default {
+  data: () => ({
+    getMainPhoto: getMainPhoto
+  }),
   components: {
     PreviewPhoto,
     ShoppingItemCounter
