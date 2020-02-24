@@ -74,5 +74,31 @@ export default {
     overflow: hidden;
     border-radius: 4px;
   }
+
+  @media (max-width: 1024px) {
+    &__previews {
+      padding-left: 0;
+      display: flex;
+      justify-content: flex-start;
+      width: 100%;
+      min-width: 100%;
+      flex-wrap: wrap;
+
+      margin: 0 -8px;
+
+      .item {
+        width: 80px;
+        min-width: 80px;
+        height: 80px;
+        margin: 8px;
+
+        img {
+          object-fit: cover;
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
 }
 </style>

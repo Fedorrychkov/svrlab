@@ -1,12 +1,14 @@
 <template>
-  <div class="page page__full page__default">
-    <div class="page__content">
-      <top-bar />
-      <my-header/>
-      <nuxt/>
+  <v-app>
+    <div class="page page__full page__default">
+      <div class="page__content">
+        <top-bar />
+        <my-header/>
+        <nuxt/>
+      </div>
+      <my-footer/>
     </div>
-    <my-footer/>
-  </div>
+  </v-app>
 </template>
 
 <script>

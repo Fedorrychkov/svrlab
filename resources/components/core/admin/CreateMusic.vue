@@ -7,7 +7,7 @@
             <v-text-field
               v-model="product.title.value"
               :rules="product.title.rules"
-              :counter="90"
+              :counter="180"
               label="Название"
               required
             ></v-text-field>
@@ -21,7 +21,7 @@
             <v-textarea
               v-model="product.short.value"
               :rules="product.short.rules"
-              :counter="300"
+              :counter="10000"
               auto-grow
               required
               label="Короткое описание"
@@ -53,6 +53,10 @@
             ></v-text-field>
           </v-flex>
         </v-layout>
+
+        <div class="music__list">
+          <music-list />
+        </div>
 
         <div class="music__layout-wrap">
           <div class="music__props">
@@ -106,6 +110,7 @@
 <script>
 import * as uuid4 from 'uuid/v4';
 import ImageList from '@/components/shared/ui/fileUpload/ImageList';
+import MusicList from '@/components/shared/ui/fileUpload/MusicList';
 import { ADD_MUSIC, UPDATE_MUSIC } from '@/store/actions/music.js';
 
 export default {
@@ -135,14 +140,14 @@ export default {
           value: '',
           rules: [
             v => !!v || 'Название продукта является обязательным',
-            v => v.length <= 90 || 'Название должно быть меньше 90 символов'
+            v => v.length <= 180 || 'Название должно быть меньше 180 символов'
           ],
         },
         short: {
           value: '',
           rules: [
             v => !!v || 'Описание продукта является обязательным',
-            v => v.length <= 300 || 'Описание должно быть меньше 300 символов'
+            v => v.length <= 10000 || 'Описание должно быть меньше 10000 символов'
           ],
         },
         isAvailable: {
@@ -167,7 +172,8 @@ export default {
     }
   },
   components: {
-    ImageList
+    ImageList,
+    MusicList
   },
   head() {
     return {
@@ -186,7 +192,7 @@ export default {
         return item;
       });
     },
-    amplifier() {
+    music() {
       return this.$store.getters[`modules/music/music`];
     }
   },
@@ -226,6 +232,11 @@ export default {
     },
     addField(value) {
       const id = uuid4();
+      
+      if (!this.customFields.length) {
+        this.customFields = []
+      }
+      
       const items = this.customFields.filter(item => value.value === item.fieldName);
       if (items.length > 0) {
         return;

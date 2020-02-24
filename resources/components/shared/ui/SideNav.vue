@@ -80,6 +80,10 @@ export default {
     min-width: var(--admin-sidenav-sm-width);
   }
 
+  &__list {
+    padding-left: 0 !important;
+  }
+
   &__link {
     transition: background 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
     display: flex;

@@ -13,6 +13,15 @@ html, body {
   overflow-y: auto;
 }
 
+.v-application a {
+  color: #fff;
+}
+
+.container {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
 html {
   font-size:100%;
 }

@@ -4,7 +4,7 @@
       <div class="product-item__meta item">
         <nuxt-link class="product-item__preview" v-if="item.images.length > 0" :to="public">
           <template v-for="img in item.images" >
-            <img :src="`/${img.path}/${img.large}`" :alt="`Картинка для ${item.name}`" :key="img.id" v-if="item.mainPhoto && item.mainPhoto === img.id" />
+            <img :src="`/${img.path}/${img.large}`" class="preview" :alt="`Картинка для ${item.name}`" :key="img.id" v-if="item.mainPhoto && item.mainPhoto === img.id" />
           </template>
           <img :src="`/${item.images[0].path}/${item.images[0].large}`" :alt="`Картинка для ${item.name}`" v-if="!item.mainPhoto" />
         </nuxt-link>
@@ -43,6 +43,7 @@ export default {
     margin-right: 15px;
     border-radius: 4px;
     overflow: hidden;
+    min-width: 100px;
 
     img {
       margin: 0 auto;

@@ -28,6 +28,10 @@ export default {
     margin-right: -8px;
   }
 
+  &__exit {
+    color: #2196f3 !important;
+  }
+
   &__item {
     margin: 0 8px;
   }

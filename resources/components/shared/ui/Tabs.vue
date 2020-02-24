@@ -29,6 +29,7 @@ export default {
     display: flex;
     justify-content: flex-start;
     margin: 0 -8px;
+    padding-left: 0;
   }
 
   &__tab {

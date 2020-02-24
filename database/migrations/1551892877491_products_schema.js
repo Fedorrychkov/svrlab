@@ -9,8 +9,8 @@ class ProductsSchema extends Schema {
       table.increments()
       table.timestamps()
 
-      table.string('name', 90).notNullable()
-      table.string('short', 300)
+      table.string('name', 180).notNullable()
+      table.string('short', 10000)
 
       table.string('images')
       table.string('type')

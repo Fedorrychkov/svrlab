@@ -13,7 +13,14 @@ module.exports = {
     // {src: '~/plugins/vue-particles', ssr: false},
     {src: '~/plugins/vue-scrollto', ssr: false},
     {src: '~/plugins/vue-fontawesome', ssr: false},
-    '~/plugins/vue-lang',
+    '~/plugins/vue-lang'
+  ],
+  buildModules: [
+    // Simple usage
+    '@nuxtjs/vuetify',
+
+    // With options
+    ['@nuxtjs/vuetify', { /* module options */ }]
   ],
   pluginOptions: {
     i18n: {

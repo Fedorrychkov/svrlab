@@ -7,10 +7,13 @@
           <h3 class="amplifier-page__title">{{amplifier.name}}</h3>
           <div class="amplifier-page__info">
             <p class="amplifier-page__cost field" v-if="!loading">
-              <span class="key">Цена</span>
-              <span class="value">
+              <span class="key">Цена:</span>
+              <span class="value" v-if="amplifier.cost">
                 {{amplifier.cost | numFormat}}
                 <i class="symbol rouble">₽</i>
+              </span>
+              <span class="value" v-else>
+                Договорная
               </span>
             </p>
           </div>
@@ -18,7 +21,27 @@
         </div>
       </div>
       <div class="amplifier-page__content">
-
+        <v-card class="tabs-card">
+          <v-tabs class="tabs-card-tabs" slider-color="white">
+            <v-tab class="tabs-card-tab">Описание</v-tab>
+            <v-tab class="tabs-card-tab" v-if="amplifier && amplifier.customFields && amplifier.customFields.length">Характеристики</v-tab>
+            <v-tab-item class="tabs-card-tab-content">
+              <div class="description">{{amplifier.short}}</div>
+            </v-tab-item>
+            <v-tab-item  class="tabs-card-tab-content" v-if="amplifier && amplifier.customFields && amplifier.customFields.length">
+              <v-simple-table>
+                <template v-slot:default>
+                  <tbody>
+                    <tr v-for="(item, i) in amplifier.customFields" :key="i">
+                      <td>{{ item.fieldName }}</td>
+                      <td>{{ item.fieldValue }}</td>
+                    </tr>
+                  </tbody>
+                </template>
+              </v-simple-table>
+            </v-tab-item>
+          </v-tabs>
+        </v-card>
       </div>
     </div>
   </div>
@@ -70,6 +93,10 @@ export default {
     align-items: flex-start;
   }
 
+  .description {
+    white-space: pre;
+  }
+
   &__button, &__info {
     margin: 15px 0;
   }
@@ -111,6 +138,34 @@ export default {
     i {
       font-style: normal;
     }
+  }
+
+  .tabs-card {
+    background-color: transparent;
+    color: #fff !important;
+    border-color: transparent;
+    margin: 24px 0;
+    box-shadow: none;
+
+    &-tabs {
+      .v-tabs__bar, .v-tabs__div, .v-tabs-bar, .v-tabs-bar .v-tab:not(.v-tab--active), .v-tabs-items {
+        background-color: transparent;
+        color: #fff !important;
+      }
+
+      .v-tabs__bar, .v-tabs-bar {
+        margin-bottom: 24px;
+      }
+
+      .theme--light.v-data-table {
+        background-color: transparent;
+        color: #fff !important;
+      }
+    }
+  }
+
+  &__content {
+    min-height: 250px;
   }
 
   @media (max-width: 992px) {

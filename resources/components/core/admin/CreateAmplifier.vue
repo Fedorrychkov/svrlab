@@ -7,7 +7,7 @@
             <v-text-field
               v-model="product.title.value"
               :rules="product.title.rules"
-              :counter="90"
+              :counter="180"
               label="Название"
               required
             ></v-text-field>
@@ -21,7 +21,7 @@
             <v-textarea
               v-model="product.short.value"
               :rules="product.short.rules"
-              :counter="300"
+              :counter="1000"
               auto-grow
               required
               label="Короткое описание"
@@ -135,14 +135,14 @@ export default {
           value: '',
           rules: [
             v => !!v || 'Название продукта является обязательным',
-            v => v.length <= 90 || 'Название должно быть меньше 90 символов'
+            v => v.length <= 180 || 'Название должно быть меньше 180 символов'
           ],
         },
         short: {
           value: '',
           rules: [
             v => !!v || 'Описание продукта является обязательным',
-            v => v.length <= 300 || 'Описание должно быть меньше 300 символов'
+            v => v.length <= 10000 || 'Описание должно быть меньше 10000 символов'
           ],
         },
         isAvailable: {
@@ -199,7 +199,7 @@ export default {
       this.product.isAvailable.value = this.amplifier.isAvailable;
       this.product.cost.value = this.amplifier.cost;
       this.product.inventory.value = this.amplifier.inventory;
-      this.customFields = this.amplifier.customFields;
+      this.customFields = this.amplifier.customFields || [];
       if (this.amplifier.customFields && this.amplifier.customFields.length > 0) {
         this.addProperty = true;
       }
@@ -226,11 +226,19 @@ export default {
     },
     addField(value) {
       const id = uuid4();
+      
+      if (!this.customFields.length) {
+        this.customFields = []
+      }
+      
       const items = this.customFields.filter(item => value.value === item.fieldName);
+      
       if (items.length > 0) {
         return;
       }
+      
       const field = {id: id, fieldName: value.value, fieldValue: ''};
+
       this.customFields.push(field);
       value.text = '';
       value.value = '';
