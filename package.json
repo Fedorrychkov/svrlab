@@ -11,6 +11,7 @@
     "dev": "nodemon --watch app --watch bootstrap --watch config --watch .env -x node server.js",
     "build": "node ./ace nuxtbuild",
     "start": "cross-env NODE_ENV=production node server.js",
+    "prod": "cross-env NODE_ENV=production pm2 start server.js --watch",
     "precommit": "npm run lint",
     "lint": "standard && eslint --ext .js,.vue resources/"
   },
