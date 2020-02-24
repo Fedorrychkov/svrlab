@@ -14,7 +14,7 @@
 <script>
 import MyFooter from '~/components/partial/Footer'
 import MyHeader from '~/components/partial/Header'
-import TopBar from '~/components/partial/AdminTopbar';
+import TopBar from '~/components/partial/AdminTopbar'
 
 export default {
   data() {

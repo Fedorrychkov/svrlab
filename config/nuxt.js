@@ -13,7 +13,8 @@ module.exports = {
     // {src: '~/plugins/vue-particles', ssr: false},
     {src: '~/plugins/vue-scrollto', ssr: false},
     {src: '~/plugins/vue-fontawesome', ssr: false},
-    '~/plugins/vue-lang'
+    '~/plugins/vue-lang',
+    '~/plugins/vue-apollo'
   ],
   buildModules: [
     // Simple usage
@@ -37,22 +38,26 @@ module.exports = {
     includeNodeModules: true, // optional, default: false (this includes graphql-tag for node_modules folder)
     authenticationType: 'Basic', // optional, default: 'Bearer'
     // optional
-    errorHandler (error) {
-      console.log('%cError', 'background: red; color: white; padding: 2px 4px; border-radius: 3px; font-weight: bold;', error.message)
-    },
+    // errorHandler (error) {
+    //   console.log('%cError', 'background: red; color: white; padding: 2px 4px; border-radius: 3px; font-weight: bold;', error.message)
+    // },
+    errorHandler: '~/plugins/apollo-error-handler.js',
     // required
     clientConfigs: {
       default: {
         // required
-        httpEndpoint: `http://localhost:${PORT}/api/graphql`,
+        httpEndpoint: `localhost:${PORT}/api/graphql`,
         // optional
         // See https://www.apollographql.com/docs/link/links/http.html#options
         httpLinkOptions: {
           credentials: 'same-origin'
         },
+        headers: {
+          'Access-Control-Allow-Origin': '*'
+        },
         // You can use `wss` for secure connection (recommended in production)
         // Use `null` to disable subscriptions
-        wsEndpoint: null, //'ws://localhost:3000', // optional
+        wsEndpoint: null, // 'ws://localhost:3000', // optional
         // LocalStorage token
         tokenName: 'apollo-token', // optional
         // Enable Automatic Query persisting with Apollo Engine
@@ -62,10 +67,10 @@ module.exports = {
         websocketsOnly: false // Optional
       },
       test: {
-        httpEndpoint: `http://localhost:${PORT}/api/graphql`,
+        httpEndpoint: `localhost:${PORT}/api/graphql`,
         wsEndpoint: null,
         tokenName: 'apollo-token'
-      },
+      }
     }
   },
   head: {

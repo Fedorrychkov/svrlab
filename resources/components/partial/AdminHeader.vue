@@ -5,14 +5,19 @@
         <nuxt-link class="admin-header__exit admin-header__link" to="/">Главная страница</nuxt-link>
       </li>
       <li class="admin-header__item">
-        <button class="admin-header__exit admin-header__link">Выйти</button>
+        <button class="admin-header__exit admin-header__link" @click="exit">Выйти</button>
       </li>
     </ul>
   </header>
 </template>
 <script>
+import { AUTH_LOGOUT } from '@/store/modules/auth'
 export default {
-
+  methods: {
+    exit () {
+      this.$store.dispatch(`modules/auth/${AUTH_LOGOUT}`, { component: this, isRedirect: true })
+    }
+  }
 }
 </script>
 <style lang="scss">

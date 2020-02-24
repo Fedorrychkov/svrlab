@@ -77,6 +77,8 @@ export default {
         this.showBasket = false;
       });
     }
+  },
+  mounted () {
     this.$store.dispatch(`modules/cart/${GET_BASKET}`);
   },
   methods: {

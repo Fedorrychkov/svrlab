@@ -19,6 +19,12 @@ const Route = use('Route')
 // base api route
 Route.any('/api', () => 'TODO: Return help about api.')
 
+Route.group(() => {
+  Route.post('', 'AuthController.login')
+  Route.get('', 'AuthController.getAuth')
+  Route.get('logout', 'AuthController.logout')
+}).prefix('api/auth')
+
 Route.post('/api/image', 'ImageController.upload')
 Route.group(() => {
   Route.get('', 'ImageController.all')

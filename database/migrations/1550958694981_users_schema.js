@@ -9,7 +9,7 @@ class UsersSchema extends Schema {
       table.increments()
       table.timestamps()
 
-      table.string('username', 80)
+      table.string('login', 80)
 
       table.string('email', 254).notNullable().unique()
       table.string('phone', 20).notNullable().unique()
@@ -21,19 +21,11 @@ class UsersSchema extends Schema {
 
       table.enu('gender', ['male', 'female', 'other'])
 
-      table.integer('role')
+      table.string('role')
 
       table.boolean('active').notNullable().defaultTo(true)
 
       table.integer('balance').defaultTo(0)
-      table.integer('earned').defaultTo(0)
-
-      table.string('social_facebook', 254)
-      table.string('social_vk', 254)
-      table.string('social_google', 254)
-      table.string('social_twitter', 254)
-      table.string('social_instagram', 254)
-      table.string('social_mailru ', 254)
     })
   }
 

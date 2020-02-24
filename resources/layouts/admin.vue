@@ -18,6 +18,7 @@ import SideNav from '@/components/shared/ui/SideNav';
 import AdminHeader from '@/components/partial/AdminHeader';
 
 export default {
+  middleware: ['auth'],
   components: {
     SideNav,
     AdminHeader
