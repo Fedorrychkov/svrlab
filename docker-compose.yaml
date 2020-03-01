@@ -5,18 +5,19 @@ services:
       context: ./
       dockerfile: Dockerfile
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=production
     restart: always
     volumes:
       - ./:/app
-    links:
-      - db:db
+    # links:
+    #   - nginx:nginx
     ports:
-      - "${APP_PORT}:3000"
-  db:
-    image: postgres:latest
-    restart: always
-    environment:
-      POSTGRES_DB: ${DB_NAME}
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASS}
+      - "80:3000"
+  # nginx:
+  #   build: ./nginx/
+  #   ports:
+  #     - 80:80
+  #     - 443:443
+  #   expose:
+  #     - 80
+  #     - 443
