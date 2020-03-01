@@ -18,10 +18,7 @@ module.exports = {
   ],
   buildModules: [
     // Simple usage
-    '@nuxtjs/vuetify',
-
-    // With options
-    ['@nuxtjs/vuetify', { /* module options */ }]
+    '@nuxtjs/vuetify'
   ],
   pluginOptions: {
     i18n: {
