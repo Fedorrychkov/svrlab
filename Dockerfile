@@ -17,11 +17,11 @@ RUN npm install
 RUN npm run build
 
 # expose 5000 on container
-EXPOSE 3000
+EXPOSE 80
 
-# set app serving to permissive / assigned
-ENV HOST=0.0.0.0
-# set app port
-ENV PORT=3000
+RUN npm run prod
 
-CMD [ "npm", "run", "prod"]
+FROM nginx:1.13.9-alpine
+COPY --from=builder /web/build /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/nginx.conf
+CMD nginx -g 'daemon off;'
